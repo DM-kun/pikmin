@@ -18,6 +18,10 @@ orig/*/*
 *.MAP
 *.bat
 
+# Save files
+*.raw
+*.gci
+
 # Build files
 build/
 .ninja_*
@@ -32,7 +36,6 @@ objdiff.json
 compile_commands.json
 
 # Miscellaneous
-/*.txt
 *.exe
 !clang-format.exe
 /decomp
@@ -49,3 +52,12 @@ mwcc_debugger.py
 /docs
 build.py
 *.lnk
+.direnv/
+.envrc
+*.zip
+.DS_Store
+*.iso
+*.ini
+*.controller
+pipeline_cache.bin
+extract

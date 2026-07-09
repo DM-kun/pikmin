@@ -21,6 +21,15 @@
 #include "timers.h"
 #include <stddef.h>
 
+#ifdef TARGET_PC
+#include <aurora/aurora.h>
+#include <aurora/event.h>
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#endif
+
 /**
  * @todo: Documentation
  * @note UNUSED Size: 00009C
@@ -232,7 +241,40 @@ void System::run(BaseApp* app)
 {
 	GXInvalidateTexAll();
 
-	while (true) {
+#ifdef TARGET_PC
+	bool exiting = false;
+	bool paused = false;
+
+	while (!exiting)
+#else
+	while (true)
+#endif
+	{
+#ifdef TARGET_PC
+        const AuroraEvent* event = aurora_update();
+        while (event != NULL && event->type != AURORA_NONE) {
+            switch (event->type) {
+                case AURORA_EXIT:
+                    exiting = true;
+                    break;
+                case AURORA_PAUSED:
+                    paused = true;
+                    break;
+                case AURORA_UNPAUSED:
+                    paused = false;
+                    break;
+                case AURORA_WINDOW_RESIZED:
+                    initInfo.windowSize = event->windowSize;
+                    break;
+                default:
+                    break;
+            }
+            ++event;
+        }
+        if (exiting || paused || !aurora_begin_frame()) {
+            continue;
+        }
+#endif
 		Jac_Gsync();
 		CARDProbe(0);
 		CARDProbe(1);
@@ -240,6 +282,9 @@ void System::run(BaseApp* app)
 		updateSysClock();
 		OSCheckActiveThreads();
 		app->idle();
+#ifdef TARGET_PC
+        aurora_end_frame();
+#endif
 	}
 
 	STACK_PAD_VAR(2);
