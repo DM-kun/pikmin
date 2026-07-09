@@ -1,7 +1,7 @@
 #include "KMath.h"
 #include "AIConstant.h"
 #include "DebugLog.h"
-#include "Dolphin/float.h"
+#include "types.h"
 #include "MapMgr.h"
 #include "zen/Math.h"
 

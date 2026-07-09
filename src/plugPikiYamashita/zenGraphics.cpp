@@ -1,5 +1,5 @@
 #include "Colour.h"
-#include "Dolphin/gx.h"
+#include "dolphin/gx.h"
 #include "NaviMgr.h"
 #include "nlib/Math.h"
 #include "zen/Graphics.h"

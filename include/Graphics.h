@@ -1,7 +1,7 @@
 #ifndef _GRAPHICS_H
 #define _GRAPHICS_H
 
-#include "Dolphin/mtx.h"
+#include "dolphin/mtx.h"
 #include "Joint.h"
 #include "Light.h"
 #include "Shape.h"

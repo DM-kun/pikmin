@@ -1,5 +1,5 @@
 #include "DebugLog.h"
-#include "Dolphin/os.h"
+#include "dolphin/os.h"
 #include "ItemMgr.h"
 #include "RopeCreature.h"
 

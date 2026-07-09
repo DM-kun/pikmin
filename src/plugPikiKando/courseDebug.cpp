@@ -1,6 +1,6 @@
 #include "CourseDebug.h"
 #include "DebugLog.h"
-#include "Dolphin/os.h"
+#include "dolphin/os.h"
 #include "Generator.h"
 #include "sysNew.h"
 

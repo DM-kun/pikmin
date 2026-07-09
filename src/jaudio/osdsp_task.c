@@ -1,6 +1,6 @@
-#include "Dolphin/dsp.h"
-#include "Dolphin/hw_regs.h"
-#include "Dolphin/os.h"
+#include "dolphin/dsp.h"
+#include "dolphin/hw_regs.h"
+#include "dolphin/os.h"
 #include "jaudio/dspproc.h"
 #include "jaudio/dummyprobe.h"
 

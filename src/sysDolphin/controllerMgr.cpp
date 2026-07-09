@@ -1,7 +1,7 @@
 #include "Controller.h"
 
 #include "DebugLog.h"
-#include "Dolphin/pad.h"
+#include "dolphin/pad.h"
 
 /**
  * @todo: Documentation

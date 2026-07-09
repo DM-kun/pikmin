@@ -1,7 +1,7 @@
 #ifndef _MATRIX4F_H
 #define _MATRIX4F_H
 
-#include "Dolphin/mtx.h"
+#include "dolphin/mtx.h"
 #include "SRT.h"
 #include "Vector.h"
 #include "types.h"

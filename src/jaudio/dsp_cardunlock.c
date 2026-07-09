@@ -8,9 +8,9 @@
 #define JAUDIO_BROKEN_CARDUNLOCK
 #endif
 
-#include "Dolphin/card.h"
-#include "Dolphin/exi.h"
-#include "Dolphin/os.h"
+#include "dolphin/card.h"
+#include "dolphin/exi.h"
+#include "dolphin/os.h"
 #include "jaudio/ipldec.h"
 #include <stdlib.h>
 #include <string.h>

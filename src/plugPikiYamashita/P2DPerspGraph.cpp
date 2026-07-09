@@ -1,5 +1,5 @@
 #include "DebugLog.h"
-#include "Dolphin/gx.h"
+#include "dolphin/gx.h"
 #include "P2D/Graph.h"
 #include "sysNew.h"
 

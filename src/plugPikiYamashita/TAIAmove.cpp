@@ -1,5 +1,5 @@
 #include "DebugLog.h"
-#include "Dolphin/os.h"
+#include "dolphin/os.h"
 #include "EffectMgr.h"
 #include "GoalItem.h"
 #include "ItemMgr.h"
