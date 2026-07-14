@@ -44,7 +44,7 @@
 //////////////// FORWARD DECLARATIONS ////////////////
 //////////////////////////////////////////////////////
 
-struct NewPikiGameSetupSection;
+class NewPikiGameSetupSection;
 
 //////////////////////////////////////////////////////
 ///////////////// MACROS AND DEFINES /////////////////
@@ -176,7 +176,8 @@ struct GameMovieInterface : public GameInterface {
 	 *
 	 * @note Size: 0x8.
 	 */
-	struct SimpleMessage {
+	class SimpleMessage {
+	public:
 		int mCommand; ///< _00, command to action - see `GameMovieCommand` enum.
 		int mData;    ///< _04, any data to pass, which differs by command - documented in `GameMovieCommand` enum also.
 	};
@@ -186,8 +187,8 @@ struct GameMovieInterface : public GameInterface {
 	 *
 	 * @note Size: 0x2C.
 	 */
-	struct ComplexMessage {
-
+	class ComplexMessage {
+	public:
 		/// Constructs a blank message.
 		ComplexMessage() { }
 
@@ -1761,8 +1762,8 @@ ModeState* DayOverModeState::initialisePhaseFour()
  * @note Size: 0x3E0.
  * @note This is required to be this far down in the .cpp file due to .sdata nonsense.
  */
-struct NewPikiGameSetupSection : public BaseGameSection {
-
+class NewPikiGameSetupSection : public BaseGameSection {
+public:
 	/// Constructs a new control section for gameplay, also setting up a lot of other important gameplay controllers in the process.
 	NewPikiGameSetupSection()
 	{
@@ -2315,7 +2316,6 @@ struct NewPikiGameSetupSection : public BaseGameSection {
 	 */
 	void menuQuitGame(Menu& parent)
 	{
-		// UNUSED FUNCTION (DLL inline)
 		parent.close();
 		mPendingOnePlayerSectionID = ONEPLAYER_GameExit;
 		gsys->setFade(0.0f);
@@ -2328,7 +2328,6 @@ struct NewPikiGameSetupSection : public BaseGameSection {
 	 */
 	void menuChangeCourse(Menu& parent)
 	{
-		// UNUSED FUNCTION (DLL inline)
 		parent.close();
 		mPendingOnePlayerSectionID = ONEPLAYER_MapSelect;
 		gsys->setFade(0.0f);
@@ -2341,7 +2340,6 @@ struct NewPikiGameSetupSection : public BaseGameSection {
 	 */
 	void menuDayEnd(Menu& parent)
 	{
-		// UNUSED FUNCTION (DLL inline)
 		parent.close();
 		gamecore->forceDayEnd();
 		gameflow.mIsDayEndTriggered = TRUE;
@@ -2353,7 +2351,6 @@ struct NewPikiGameSetupSection : public BaseGameSection {
 	 */
 	void menuDecreaseFrame(Menu& parent)
 	{
-		// UNUSED FUNCTION (DLL inline)
 		if (gameflow.mMoviePlayer->mIsActive) {
 			// pause the current cutscene so we step through frame-by-frame
 			gameflow.mMoviePlayer->mIsPaused = true;
@@ -2383,7 +2380,6 @@ struct NewPikiGameSetupSection : public BaseGameSection {
 	 */
 	void menuIncreaseFrame(Menu& parent)
 	{
-		// UNUSED FUNCTION (DLL inline)
 		if (gameflow.mMoviePlayer->mIsActive) {
 			// pause the current cutscene so we step through frame-by-frame
 			gameflow.mMoviePlayer->mIsPaused = true;
@@ -2412,7 +2408,6 @@ struct NewPikiGameSetupSection : public BaseGameSection {
 	 */
 	void menuIncreaseMovie(Menu& parent)
 	{
-		// UNUSED FUNCTION (DLL inline)
 		// we just had an input, set a delay for the next one to be detected
 		if (mMenuRepeatTimer < -1) {
 			mMenuRepeatDelay = 4;
@@ -2440,7 +2435,6 @@ struct NewPikiGameSetupSection : public BaseGameSection {
 	 */
 	void menuDecreaseMovie(Menu& parent)
 	{
-		// UNUSED FUNCTION (DLL inline)
 		// we just had an input, set a delay for the next one to be detected
 		if (mMenuRepeatTimer < -1) {
 			mMenuRepeatDelay = 4;
@@ -2468,7 +2462,6 @@ struct NewPikiGameSetupSection : public BaseGameSection {
 	 */
 	void menuPlayMovie(Menu& parent)
 	{
-		// UNUSED FUNCTION (DLL inline)
 		if (gameflow.mMoviePlayer->mIsActive) {
 			gameflow.mMoviePlayer->skipScene(SCENESKIP_Skip);
 		} else {
@@ -2483,7 +2476,6 @@ struct NewPikiGameSetupSection : public BaseGameSection {
 	 */
 	void menuPauseMovie(Menu& parent)
 	{
-		// UNUSED FUNCTION (DLL inline)
 		if (gameflow.mMoviePlayer->mIsActive) {
 			gameflow.mMoviePlayer->mIsPaused ^= true;
 			PRINT("movie pause = %s\n", gameflow.mMoviePlayer->mIsPaused ? "On" : "Off");
@@ -2814,7 +2806,7 @@ NewPikiGameSection::NewPikiGameSection()
 	// run gameplay at 30 fps
 	gsys->setFrameClamp(2);
 
-#ifdef WIN32
+#if defined(WIN32) || defined(DEVELOP)
 	_nPrint = FALSE;
 	_kPrint = FALSE;
 #endif

@@ -1,17 +1,19 @@
 #ifndef _PEVE_MOTIONEVENTS_H
 #define _PEVE_MOTIONEVENTS_H
 
+#include "Peve/Condition.h"
 #include "Peve/Event.h"
 #include "Peve/IO.h"
 #include "nlib/Geometry.h"
 #include "nlib/Spline.h"
 #include "types.h"
 
-struct NFunction3D;
-struct NPosture3DIO;
-struct NVector3f;
-struct NVector3fIO;
-struct Vector3f;
+class NFunction3D;
+class NPosture3DIO;
+class NVector3f;
+class NVector3fIO;
+struct PeveHomingPositionEvent; // I don't feel like reordering the classes right now.
+class Vector3f;
 
 /**
  * @brief TODO
@@ -70,7 +72,9 @@ struct PeveCircleMoveWatchEvent : public PeveParallelEvent {
 
 	// _00     = VTBL
 	// _00-_10 = PeveEvent
-	// TODO: members
+	PeveTimeCondition mTimeCondition;              // _10
+	PeveCircleMoveEvent* mCircleMoveEvent;         // _14
+	PeveHomingPositionEvent* mHomingPositionEvent; // _18
 };
 
 /**
@@ -124,7 +128,8 @@ struct PeveHomingPostureEvent : public PeveParallelEvent {
 
 	// _00     = VTBL
 	// _00-_10 = PeveEvent
-	// TODO: members
+	PeveHomingPositionEvent* mHomingPositionEvent1; // _10
+	PeveHomingPositionEvent* mHomingPositionEvent2; // _14
 };
 
 /**

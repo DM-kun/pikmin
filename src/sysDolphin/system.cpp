@@ -116,14 +116,13 @@ static BufferedInputStream dvdBufferedStream;
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 000044
+ * @note UNUSED Size: 000044 (Matching by size)
  */
 void DVDStream::init()
 {
 	mOffset  = 0;
 	mPending = mFileInfo.length;
 	sprintf(lastName, mPath);
-	// UNUSED FUNCTION
 }
 
 /**
@@ -659,7 +658,7 @@ System::System()
  */
 void sysErrorHandler(u16, OSContext*, u32, u32)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -1038,7 +1037,7 @@ System::~System()
  */
 bool System::hasDebugInfo()
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**

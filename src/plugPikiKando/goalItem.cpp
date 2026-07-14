@@ -16,6 +16,7 @@
 #include "PlayerState.h"
 #include "Route.h"
 #include "SoundMgr.h"
+#include "bugprint.h"
 #include "gameflow.h"
 #include "jaudio/pikiinter.h"
 
@@ -629,11 +630,11 @@ void GoalItem::startAI(int)
 		Vector3f diff   = coll->mCentre - child->mCentre;
 		f32 len         = diff.length();
 
-		leg->mFulcrum = (Fulcrum*)itemMgr->birth(OBJTYPE_Fulcrum);
+		leg->mFulcrum = static_cast<Fulcrum*>(itemMgr->birth(OBJTYPE_Fulcrum));
 		leg->mFulcrum->init(coll->mCentre);
 		leg->mFulcrum->startAI(0);
 
-		leg->mRope = (RopeItem*)itemMgr->birth(OBJTYPE_Rope);
+		leg->mRope = static_cast<RopeItem*>(itemMgr->birth(OBJTYPE_Rope));
 		leg->mRope->init(child->mCentre);
 		leg->mRope->setRope(leg->mFulcrum);
 		leg->mRope->mRopeLength = len;
@@ -732,7 +733,7 @@ void GoalItem::update()
 			if (!exitPiki()) {
 				int mapPikis = GameStat::mapPikis;
 				int mePikis  = GameStat::mePikis;
-				PRINT_GLOBAL("map=%d mePiki=%d exitC=%d", mapPikis, mePikis, mPikisToExit);
+				BUGPRINT("map=%d mePiki=%d exitC=%d", mapPikis, mePikis, mPikisToExit);
 				ERROR("2d err %d %d %d", mapPikis, mePikis, mPikisToExit);
 			}
 

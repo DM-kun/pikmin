@@ -1,5 +1,6 @@
 #include "PowerPC_EABI_Support/Runtime/MWCPlusLib.h"
 #include "PowerPC_EABI_Support/Runtime/NMWException.h"
+#include <stdlib.h>
 
 #pragma exceptions on
 
@@ -37,10 +38,85 @@ public:
 	}
 };
 
-/*
- * --INFO--
- * Address:	80214C28
- * Size:	000108
+namespace std {
+
+/**
+ * @todo Documentation
+ * @note UNUSED Size: 0x20
+ */
+static void dthandler()
+{
+	abort();
+}
+
+static terminate_handler thandler = dthandler;
+
+/**
+ * @todo Documentation
+ * @note UNUSED Size: 0x28
+ */
+static void duhandler()
+{
+	terminate();
+}
+
+static unexpected_handler uhandler = duhandler;
+
+/**
+ * @todo Documentation
+ * @note UNUSED Size: 000010 (Matching by size)
+ */
+terminate_handler set_terminate(terminate_handler newHandler)
+{
+	terminate_handler oldHandler = thandler;
+
+	thandler = newHandler;
+	return oldHandler;
+}
+
+/**
+ * @todo Documentation
+ * @note UNUSED Size: 000028
+ */
+void terminate()
+{
+	TRAP_UNIMPLEMENTED;
+}
+
+/**
+ * @todo Documentation
+ * @note UNUSED Size: 000010 (Matching by size)
+ */
+unexpected_handler set_unexpected(unexpected_handler newHandler)
+{
+	unexpected_handler oldHandler = uhandler;
+
+	uhandler = newHandler;
+	return oldHandler;
+}
+
+/**
+ * @todo Documentation
+ * @note UNUSED Size: 000028
+ */
+void unexpected()
+{
+	TRAP_UNIMPLEMENTED;
+}
+
+} // namespace std
+
+/**
+ * @todo Documentation
+ * @note UNUSED Size: 00022C
+ */
+char __throw_catch_compare(const char* throwtype, const char* catchtype, s32* offset_result)
+{
+	TRAP_UNIMPLEMENTED;
+}
+
+/**
+ * @todo Documentation
  */
 extern void* __construct_new_array(void* block, ConstructorDestructor ctor, ConstructorDestructor dtor, size_t size, size_t n)
 {
@@ -65,10 +141,8 @@ extern void* __construct_new_array(void* block, ConstructorDestructor ctor, Cons
 	return ptr;
 }
 
-/*
- * --INFO--
- * Address:	80214A70
- * Size:	000100
+/**
+ * @todo Documentation
  */
 extern void __construct_array(void* ptr, ConstructorDestructor ctor, ConstructorDestructor dtor, size_t size, size_t n)
 {
@@ -80,10 +154,9 @@ extern void __construct_array(void* ptr, ConstructorDestructor ctor, Constructor
 	}
 }
 
-/*
- * --INFO--
- * Address:	........
- * Size:	000078
+/**
+ * @todo Documentation
+ * @note UNUSED Size: 000078
  */
 extern void __destroy_arr(void* block, ConstructorDestructor* dtor, size_t size, size_t n)
 {
@@ -95,10 +168,8 @@ extern void __destroy_arr(void* block, ConstructorDestructor* dtor, size_t size,
 	}
 }
 
-/*
- * --INFO--
- * Address:	802149F4
- * Size:	00007C
+/**
+ * @todo Documentation
  */
 extern void __destroy_new_array(void* block, ConstructorDestructor dtor)
 {
@@ -121,90 +192,11 @@ extern void __destroy_new_array(void* block, ConstructorDestructor dtor)
 	}
 }
 
-/*
- * --INFO--
- * Address:	........
- * Size:	000080
+/**
+ * @todo Documentation
+ * @note UNUSED Size: 000080
  */
 void __destroy_new_array2(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
-
-// /*
-//  * --INFO--
-//  * Address:	........
-//  * Size:	00022C
-//  */
-// void __throw_catch_compare(void)
-// {
-// 	// UNUSED FUNCTION
-// }
-
-// /*
-//  * --INFO--
-//  * Address:	........
-//  * Size:	000028
-//  */
-// void std::unexpected()
-// {
-// 	// UNUSED FUNCTION
-// }
-
-// /*
-//  * --INFO--
-//  * Address:	........
-//  * Size:	000010
-//  */
-// unexpected_handler std::set_unexpected(void (*)())
-// {
-// 	// UNUSED FUNCTION
-// }
-
-// /*
-//  * --INFO--
-//  * Address:	........
-//  * Size:	000028
-//  */
-// void std::terminate()
-// {
-// 	// UNUSED FUNCTION
-// }
-
-// /*
-//  * --INFO--
-//  * Address:	........
-//  * Size:	000010
-//  */
-// terminate_handler std::set_terminate(void (*)())
-// {
-// 	// UNUSED FUNCTION
-// }
-
-// extern "C" {
-// extern void abort();
-// }
-
-// namespace std {
-// /**
-//  * @note Address: N/A
-//  * @note Size: 0x28
-//  */
-// static void duhandler()
-// {
-// 	terminate();
-// }
-
-// static unexpected_handler uhandler = duhandler;
-
-// /**
-//  * @note Address: N/A
-//  * @note Size: 0x20
-//  */
-// static void dthandler()
-// {
-// 	abort();
-// }
-
-// static terminate_handler thandler = dthandler;
-// } // namespace std

@@ -11,8 +11,8 @@
 #include "zen/DrawCommon.h"
 #include "zen/Number.h"
 
-struct Graphics;
-struct P2DPerspGraph;
+class Graphics;
+class P2DPerspGraph;
 
 namespace zen {
 
@@ -21,7 +21,8 @@ namespace zen {
  *
  * @note Size: 0xC.
  */
-struct GameInfo {
+class GameInfo {
+public:
 	GameInfo()
 	{
 		mEncodedNextThrowType = 0;

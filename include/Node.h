@@ -6,14 +6,15 @@
 #include "SRT.h"
 #include "types.h"
 
-struct Graphics;
-struct Vector3f;
-struct VQS;
+class Graphics;
+class Vector3f;
+class VQS;
 
 /**
  * @brief TODO
  */
-struct Node : public CoreNode {
+class Node : public CoreNode {
+public:
 	Node(immut char* name = "<Node>")
 	    : CoreNode(name)
 	{
@@ -42,6 +43,8 @@ struct Node : public CoreNode {
 	void setType(int);
 	void togFlag(int);
 
+	static int currID; // unused
+
 	// _00     = VTBL
 	// _00-_14 = CoreNode
 	s32 mType;  // _14
@@ -52,7 +55,8 @@ struct Node : public CoreNode {
 /**
  * @brief TODO
  */
-struct FaceNode : public CoreNode {
+class FaceNode : public CoreNode {
+public:
 	FaceNode()
 	    : CoreNode("face")
 	{
@@ -100,7 +104,8 @@ struct FaceNode : public CoreNode {
 /**
  * @brief TODO
  */
-struct SRTNode : public Node {
+class SRTNode : public Node {
+public:
 	SRTNode(immut char* name); // unused/inlined
 
 	virtual void update();                                    // _10
@@ -126,7 +131,8 @@ struct SRTNode : public Node {
 /**
  * @brief TODO
  */
-struct NodeMgr {
+class NodeMgr {
+public:
 	NodeMgr();
 	~NodeMgr();
 

@@ -5,16 +5,16 @@
 #include "zen/CallBack.h"
 #include "zen/particle.h"
 
-struct Creature;
-struct Vector3f;
-struct Teki;
-struct TAIeffectAttackParam;
+class Creature;
+class Vector3f;
+class Teki;
+class TAIeffectAttackParam;
 
 /**
  * @brief TODO
  */
-struct TAIeffectAttackEventCallBack {
-
+class TAIeffectAttackEventCallBack {
+public:
 	virtual bool hitCreature(TAIeffectAttackParam*, Creature*) { return false; }                                    // _08
 	virtual bool hitCreature(TAIeffectAttackParam*, Creature*, Vector3f) { return false; }                          // _0C
 	virtual bool hitCreature(zen::particleGenerator*, TAIeffectAttackParam*, Creature*, Vector3f) { return false; } // _10
@@ -29,7 +29,8 @@ struct TAIeffectAttackEventCallBack {
 /**
  * @brief TODO
  */
-struct TAIeffectAttackParam {
+class TAIeffectAttackParam {
+public:
 	TAIeffectAttackParam() { init(); }
 
 	void init()

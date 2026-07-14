@@ -8,18 +8,19 @@
 #include "sysMath.h"
 #include "types.h"
 
-struct Graphics;
-struct Node;
-struct Plane;
-struct Texture;
-struct SceneData;
+class Graphics;
+class Node;
+class Plane;
+class Texture;
+class SceneData;
 
 /**
  * @brief TODO
  *
  * @note Size: 0x2C.
  */
-struct CullingPlane {
+class CullingPlane {
+public:
 	CullingPlane() { }
 
 	void CheckMinMaxDir();
@@ -37,10 +38,11 @@ struct CullingPlane {
 /**
  * @brief TODO
  */
-struct CullFrustum {
+class CullFrustum {
+public:
 	CullFrustum()
 	{
-		_155 = 0;
+		_155 = false;
 		mPosition.set(0.0f, 0.0f, 0.0f);
 		mFov  = 60.0f;
 		mNear = 1.0f;
@@ -123,8 +125,8 @@ struct CullFrustum {
 	CullingPlane mCullPlanes[6];     // _0C
 	CullingPlane* mPlanePointers[6]; // _114, idk how many are in this
 	u8 _12C[0x154 - 0x12C];          // _12C, unknown
-	u8 mHasBoundOffset;              // _154
-	u8 _155;                         // _155
+	bool mHasBoundOffset;            // _154
+	bool _155;                       // _155
 	Vector3f mBoundOffset;           // _158
 	Vector3f mPosition;              // _164
 	Vector3f mFocus;                 // _170, aka Target Position
@@ -150,14 +152,15 @@ struct CullFrustum {
  *
  * @note Size: 0x348.
  */
-struct Camera : public CullFrustum {
+class Camera : public CullFrustum {
+public:
 	Camera();
 
-	f32 projectWorldPoint(Graphics&, Vector3f&);
+	f32 projectWorldPoint(Graphics&, Vector3f&) immut;
 
 	// unused/inlined:
-	void camReflect(Camera&, Plane&);
-	f32 projectCamPoint(Vector3f&);
+	void camReflect(Camera&, Plane&) immut;
+	f32 projectCamPoint(Vector3f&) immut;
 
 	// _00-_260 = CullFrustum
 	Matrix4f mPerspectiveMatrix; // _260, used for perspective projection
@@ -172,7 +175,8 @@ struct Camera : public CullFrustum {
 /**
  * @brief TODO
  */
-struct LightCamera : public Camera {
+class LightCamera : public Camera {
+public:
 	LightCamera() { mLightMap = nullptr; }
 
 	void initLightmap(int size, int texFmt);
@@ -191,7 +195,8 @@ struct LightCamera : public Camera {
  * @brief TODO
  * @note Size: 0x3F8.
  */
-struct CamDataInfo {
+class CamDataInfo {
+public:
 	CamDataInfo();
 
 	void update(f32, immut Matrix4f&);

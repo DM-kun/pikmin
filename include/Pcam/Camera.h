@@ -7,12 +7,12 @@
 #include "nlib/Graphics.h"
 #include "types.h"
 
-struct Controller;
-struct Creature;
-struct Font;
-struct Graphics;
-struct Navi;
-struct NVector3f;
+class Controller;
+class Creature;
+class Font;
+class Graphics;
+class Navi;
+class NVector3f;
 struct PcamCameraParameters;
 
 /**
@@ -57,7 +57,8 @@ enum {
  *
  * @note Size: 0x18.
  */
-struct PcamMotionInfo {
+class PcamMotionInfo {
+public:
 	PcamMotionInfo();
 
 	// unused/inlined:
@@ -75,7 +76,8 @@ struct PcamMotionInfo {
 /**
  * @brief TODO
  */
-struct PcamControlInfo {
+class PcamControlInfo {
+public:
 	PcamControlInfo();
 
 	void init(bool, bool, bool, bool, bool, bool, bool, f32, f32, f32);
@@ -97,7 +99,8 @@ struct PcamControlInfo {
  *
  * @note Size: 0x170.
  */
-struct PcamCamera : public NCamera {
+class PcamCamera : public NCamera {
+public:
 	PcamCamera(Camera*);
 
 	void startCamera(Creature*);

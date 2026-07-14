@@ -13,11 +13,11 @@
 #include "system.h"
 #include "types.h"
 
-struct AnimMgr;
-struct BaseShape;
-struct CmdStream;
-struct Shape;
-struct AgeServer;
+class AnimMgr;
+class BaseShape;
+class CmdStream;
+class Shape;
+class AgeServer;
 
 /**
  * @brief Flags controlling a given animation.
@@ -67,7 +67,8 @@ enum KeyEventTypes {
 /**
  * @brief TODO
  */
-struct DataChunk {
+class DataChunk {
+public:
 	DataChunk()
 	{
 		mDataIndex = 0;
@@ -143,7 +144,8 @@ struct DataChunk {
 /**
  * @brief TODO
  */
-struct AnimCacheInfo : public CacheInfo {
+class AnimCacheInfo : public CacheInfo {
+public:
 	AnimCacheInfo() { initData(); }
 
 	void initData()
@@ -153,7 +155,7 @@ struct AnimCacheInfo : public CacheInfo {
 	}
 
 	// _00 - _0C = CacheInfo
-	u32 _0C;                    // _0C
+	AnimCacheInfo** _0C;        // _0C
 	CacheInfo* mCachedMtxBlock; // _10
 	Matrix4f* mBoneMatrices;    // _14
 	Matrix4f** mBoneMtxList;    // _18
@@ -198,7 +200,8 @@ enum {
 /**
  * @brief Information about animation data, read in from a file.
  */
-struct AnimDataInfo {
+class AnimDataInfo {
+public:
 	AnimDataInfo() { mFlags = 0; }
 
 	AnimParam mScale[3];       // _00, x y and z
@@ -214,8 +217,8 @@ struct AnimDataInfo {
 /**
  * @brief TODO
  */
-struct AnimData : public CoreNode {
-
+class AnimData : public CoreNode {
+public:
 	AnimData()
 	    : CoreNode("")
 	{
@@ -257,7 +260,8 @@ struct AnimData : public CoreNode {
 /**
  * @brief TODO
  */
-struct AnimDca : public AnimData {
+class AnimDca : public AnimData {
+public:
 	AnimDca(BaseShape*, int)
 	    : AnimData()
 	{
@@ -280,7 +284,8 @@ struct AnimDca : public AnimData {
 /**
  * @brief TODO
  */
-struct AnimDck : public AnimData {
+class AnimDck : public AnimData {
+public:
 	AnimDck(BaseShape*, int);
 	AnimDck(immut char* name)
 	    : AnimData(StdSystem::stringDup(name))
@@ -301,7 +306,8 @@ struct AnimDck : public AnimData {
 /**
  * @brief TODO
  */
-struct AnmobjInfo : public GfxobjInfo {
+class AnmobjInfo : public GfxobjInfo {
+public:
 	AnmobjInfo()
 	    : mAnimation(nullptr)
 	{
@@ -321,8 +327,8 @@ struct AnmobjInfo : public GfxobjInfo {
  *
  * @note Size: 0x10.
  */
-struct AnimKey {
-
+class AnimKey {
+public:
 	/// Default constructor. Initialise everything to 0.
 	AnimKey()
 	{
@@ -376,8 +382,8 @@ struct AnimKey {
  *
  * @note Size: 0x74.
  */
-struct AnimInfo : public CoreNode {
-
+class AnimInfo : public CoreNode {
+public:
 #ifdef WIN32
 	virtual void genAge(AgeServer& server);
 #endif
@@ -468,8 +474,8 @@ struct AnimInfo : public CoreNode {
  *
  * @note Size: 0x10.
  */
-struct AnimContext {
-
+class AnimContext {
+public:
 	/// Default constructor.
 	AnimContext()
 	    : mData(nullptr)
@@ -551,8 +557,8 @@ struct Animator {
  *
  * @note Size: 0xB8.
  */
-struct AnimMgr : public CoreNode {
-
+class AnimMgr : public CoreNode {
+public:
 	/**
 	 * @brief AnimMgr parameters.
 	 *
@@ -618,7 +624,8 @@ struct FrameCacher : public CacheInfo {
  *
  * @note Size: 0x18.
  */
-struct AnimFrameCacher {
+class AnimFrameCacher {
+public:
 	AnimFrameCacher(int);
 	void updateInfo(AnimCacheInfo*);
 	void removeOldest();

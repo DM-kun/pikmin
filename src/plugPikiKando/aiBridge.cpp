@@ -5,6 +5,7 @@
 #include "Interactions.h"
 #include "PikiAI.h"
 #include "WorkObject.h"
+#include "bugprint.h"
 #include "gameflow.h"
 #include "zen/Math.h"
 
@@ -108,7 +109,7 @@ int ActBridge::exec()
 	if (!mBridge) {
 		PRINT("no bridge!\n");
 		mPiki->mEmotion = PikiEmotion::Sad;
-		PRINT_GLOBAL("exe:no bridge!");
+		BUGPRINT("exe:no bridge!");
 		return ACTOUT_Fail;
 	}
 
@@ -151,7 +152,7 @@ void ActBridge::initDetour()
  */
 int ActBridge::exeDetour()
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -215,8 +216,7 @@ void ActBridge::initApproach()
  */
 int ActBridge::exeApproach()
 {
-
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -225,7 +225,7 @@ int ActBridge::exeApproach()
  */
 void ActBridge::initGo()
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -234,7 +234,7 @@ void ActBridge::initGo()
  */
 int ActBridge::exeGo()
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -243,7 +243,7 @@ int ActBridge::exeGo()
  */
 void ActBridge::initWork()
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -252,12 +252,12 @@ void ActBridge::initWork()
  */
 int ActBridge::exeWork()
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 0000A8
+ * @note UNUSED Size: 0000A8 (Matching by size)
  */
 void ActBridge::doWork(int mins)
 {
@@ -265,7 +265,6 @@ void ActBridge::doWork(int mins)
 	mBridge->stimulate(build);
 	mStartWorkTime = gameflow.mWorldClock.mCurrentGameMinute;
 	mIsAttackReady = FALSE;
-	// UNUSED FUNCTION
 }
 
 /**
@@ -321,7 +320,7 @@ void ActBridge::newInitApproach()
 int ActBridge::newExeApproach()
 {
 	if (!mBridge) {
-		PRINT_GLOBAL("app bri fail");
+		BUGPRINT("app bri fail");
 		mPiki->mEmotion = PikiEmotion::Sad;
 		PRINT("app failed\n");
 		return ACTOUT_Fail;
@@ -409,13 +408,13 @@ int ActBridge::newExeGo()
 {
 	if (mStageID == -1) {
 		PRINT("stage = -1\n");
-		PRINT_GLOBAL("go : stage=-1 suc");
+		BUGPRINT("go : stage=-1 suc");
 		return ACTOUT_Success;
 	}
 
 	if (!mBridge) {
 		PRINT("failed \n");
-		PRINT_GLOBAL("no bridge fail");
+		BUGPRINT("no bridge fail");
 		mPiki->mEmotion = PikiEmotion::Sad;
 		PRINT("NO BRIDGE!\n");
 		return ACTOUT_Fail;
@@ -483,7 +482,7 @@ int ActBridge::newExeWork()
 	// If the bridge is finished, continue
 	if (mBridge->isStageFinished(mStageID)) {
 		PRINT("**** STAGE IS FINISHED *** WORK\n");
-		PRINT_GLOBAL("stage fin! work->go");
+		BUGPRINT("stage fin! work->go");
 		newInitGo();
 		mPiki->resetCreatureFlag(CF_DisableMovement);
 		return ACTOUT_Continue;
@@ -512,7 +511,7 @@ int ActBridge::newExeWork()
 		return ACTOUT_Fail;
 	}
 
-	if (mActionCounter != 0) {
+	if (mActionCounter > 0) {
 		mActionCounter--;
 		if (mActionCounter == 0) {
 			newInitWork();

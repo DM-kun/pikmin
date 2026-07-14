@@ -9,6 +9,7 @@
 #include "Route.h"
 #include "UfoItem.h"
 #include "UtilityKando.h"
+#include "bugprint.h"
 #include "sysNew.h"
 
 /**
@@ -390,7 +391,7 @@ int PathFinder::selectWay(PathFinder::Buffer& buf, int destWPIdx, PathFinder::Bu
 
 		WayPoint* wp = getWayPoint(buf.mWayPointIdx);
 		if (!wp) {
-			PRINT_GLOBAL("buffer.idx=%d", buf.mWayPointIdx);
+			BUGPRINT("buffer.idx=%d", buf.mWayPointIdx);
 			ERROR("wp is null!");
 		}
 
@@ -414,7 +415,7 @@ int PathFinder::selectWay(PathFinder::Buffer& buf, int destWPIdx, PathFinder::Bu
 
 		// Ensure waypoint exists
 		if (!getWayPoint(neighborIdx)) {
-			PRINT_GLOBAL("idx=%d", neighborIdx);
+			BUGPRINT("idx=%d", neighborIdx);
 			ERROR("no getwaypoint!");
 		}
 
@@ -439,7 +440,7 @@ int PathFinder::selectWay(PathFinder::Buffer& buf, int destWPIdx, PathFinder::Bu
 
 		// Sanity check: no more than 8 candidates
 		if (validLinkCount >= 8) {
-			PRINT_GLOBAL("numWays=%d", validLinkCount);
+			BUGPRINT("numWays=%d", validLinkCount);
 			ERROR("numWays>=8");
 		}
 
@@ -534,7 +535,7 @@ Vector3f RouteMgr::getSafePosition(u32, Vector3f& pos)
 
 	// Ensure two valid waypoints were found
 	if (!wp || !wp2) {
-		PRINT_GLOBAL("from=%x to=%x pos(%.1f %.1f %.1f)\n", wp, wp2, pos.x, pos.y, pos.z);
+		BUGPRINT("from=%x to=%x pos(%.1f %.1f %.1f)\n", wp, wp2, pos.x, pos.y, pos.z);
 		ERROR("getSafePos (%.1f %.1f %.1f)", pos.x, pos.y, pos.z);
 	}
 
@@ -1090,7 +1091,7 @@ int RouteMgr::getColinIndex(RouteGroup* group, RoutePoint* point)
  */
 RouteTracer::RouteTracer()
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -1099,7 +1100,7 @@ RouteTracer::RouteTracer()
  */
 RouteTracer::Context::PointInfo::PointInfo()
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -1108,7 +1109,7 @@ RouteTracer::Context::PointInfo::PointInfo()
  */
 void RouteTracer::render(Graphics&)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -1117,7 +1118,7 @@ void RouteTracer::render(Graphics&)
  */
 void RouteTracer::Context::makeContext(RouteTracer*)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -1126,7 +1127,7 @@ void RouteTracer::Context::makeContext(RouteTracer*)
  */
 void RouteTracer::Context::setTarget(RouteTracer*)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -1135,7 +1136,7 @@ void RouteTracer::Context::setTarget(RouteTracer*)
  */
 int RouteTracer::Context::recognise(RouteTracer*)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -1144,7 +1145,7 @@ int RouteTracer::Context::recognise(RouteTracer*)
  */
 bool RouteTracer::noLink()
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -1153,7 +1154,7 @@ bool RouteTracer::noLink()
  */
 void RouteTracer::startConsult(Creature*, PathFinder*, PathFinder::Buffer*, int, Vector3f&)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -1162,7 +1163,7 @@ void RouteTracer::startConsult(Creature*, PathFinder*, PathFinder::Buffer*, int,
  */
 void RouteTracer::updateState()
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -1171,7 +1172,7 @@ void RouteTracer::updateState()
  */
 Vector3f RouteTracer::getTarget()
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -1301,11 +1302,43 @@ void WayPoint::initLinkInfos()
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 00007C
+ * @note UNUSED Size: 00007C (Matching by size)
+ * This appears to be either an unfinished variation of `PathFinder::findSyncOnyon` or an outlined portion of `WayPoint::initLinkInfos`.
+ * In either case, Kando decided to abandon the function and left it containing undefined behavior by not always returning something.
  */
-int PathFinder::findFirstStepOnyon(int, int, PathFinder::Buffer*)
+int PathFinder::findFirstStepOnyon(int startWPIdx, int goalType, PathFinder::Buffer* bufferList)
 {
-	// UNUSED FUNCTION
+	int destWPIdx = -1;
+
+	// Determine the destination waypoint index based on goalType
+	switch (goalType) {
+	case 0: // Red onion
+	case 1: // Blue onion
+	case 2: // Yellow onion
+	{
+		GoalItem* goal = itemMgr->getContainer(goalType);
+		if (goal) {
+			destWPIdx = goal->mWaypointIdx;
+		}
+		break;
+	}
+	case 3: // UFO
+	{
+		UfoItem* ufo = itemMgr->getUfo();
+		if (ufo) {
+			destWPIdx = ufo->mWaypointID;
+		}
+		break;
+	}
+	}
+
+	if (destWPIdx == -1) {
+		return -1;
+	}
+	// Maybe this was the intention?
+#if defined(BUGFIX)
+	return destWPIdx;
+#endif
 }
 
 /**
@@ -1409,7 +1442,7 @@ int PathFinder::findSyncOnyon(immut Vector3f& startPos, PathFinder::Buffer* buff
 			bufIdx         = 0;
 			bestStep       = secondBestRes;
 			secondBestFlag = false;
-			PRINT_GLOBAL("second best route:%d", getWayPoint(getWayPoint(startWPIdx)->mLinkIndices[secondBestRes])->mIndex);
+			BUGPRINT("second best route:%d", getWayPoint(getWayPoint(startWPIdx)->mLinkIndices[secondBestRes])->mIndex);
 			bufferList[0].resetFlag(bestStep);
 		}
 

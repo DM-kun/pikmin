@@ -50,7 +50,7 @@ void __DVDFSInit()
 
 /**
  * @TODO: Documentation
- * @note UNUSED Size: 00009C
+ * @note UNUSED Size: 00009C (Matching by size)
  */
 static BOOL isSame(const char* path, const char* string)
 {
@@ -64,7 +64,6 @@ static BOOL isSame(const char* path, const char* string)
 		return TRUE;
 	}
 	return FALSE;
-	// UNUSED FUNCTION
 }
 
 /**
@@ -457,7 +456,7 @@ BOOL DVDSeekAsyncPrio(DVDFileInfo* fileInfo, s32 offset, DVDCallback callback, s
  */
 static void cbForSeekAsync(s32 result, DVDCommandBlock* block)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -466,7 +465,7 @@ static void cbForSeekAsync(s32 result, DVDCommandBlock* block)
  */
 s32 DVDSeekPrio(DVDFileInfo* fileInfo, s32 offset, s32 prio)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -475,7 +474,7 @@ s32 DVDSeekPrio(DVDFileInfo* fileInfo, s32 offset, s32 prio)
  */
 static void cbForSeekSync(s32 result, DVDCommandBlock* block)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -484,7 +483,7 @@ static void cbForSeekSync(s32 result, DVDCommandBlock* block)
  */
 s32 DVDGetFileInfoStatus(DVDFileInfo* fileInfo)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -516,7 +515,6 @@ BOOL DVDOpenDir(const char* dirName, DVDDir* dir)
 	dir->location = entry + 1;
 	dir->next     = nextDir(entry);
 	return TRUE;
-	// UNUSED FUNCTION
 }
 
 /**
@@ -525,7 +523,7 @@ BOOL DVDOpenDir(const char* dirName, DVDDir* dir)
  */
 BOOL DVDReadDir(DVDDir* dir, DVDDirEntry* dirent)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -534,7 +532,7 @@ BOOL DVDReadDir(DVDDir* dir, DVDDirEntry* dirent)
  */
 BOOL DVDCloseDir(DVDDir* dir)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -543,7 +541,7 @@ BOOL DVDCloseDir(DVDDir* dir)
  */
 void* DVDGetFSTLocation()
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 #define RoundUp32KB(x)   (((u32)(x) + 32 * 1024 - 1) & ~(32 * 1024 - 1))
@@ -617,7 +615,7 @@ static void cbForPrepareStreamAsync(s32 result, DVDCommandBlock* block)
 
 /**
  * @TODO: Documentation
- * @note UNUSED Size: 000144
+ * @note UNUSED Size: 000144 (Matching by size)
  */
 s32 DVDPrepareStream(DVDFileInfo* fileInfo, u32 length, u32 offset)
 {
@@ -678,7 +676,6 @@ s32 DVDPrepareStream(DVDFileInfo* fileInfo, u32 length, u32 offset)
 
 	OSRestoreInterrupts(enabled);
 	return retVal;
-	// UNUSED FUNCTION
 }
 
 /**
@@ -687,7 +684,7 @@ s32 DVDPrepareStream(DVDFileInfo* fileInfo, u32 length, u32 offset)
  */
 static void cbForPrepareStreamSync(s32 result, DVDCommandBlock* block)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -696,5 +693,5 @@ static void cbForPrepareStreamSync(s32 result, DVDCommandBlock* block)
  */
 s32 DVDGetTransferredSize(DVDFileInfo* fileinfo)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }

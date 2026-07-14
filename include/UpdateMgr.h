@@ -3,13 +3,14 @@
 
 #include "types.h"
 
-struct Graphics;
-struct UpdateMgr;
+class Graphics;
+class UpdateMgr;
 
 /**
  * @brief TODO
  */
-struct UpdateContext {
+class UpdateContext {
+public:
 	UpdateContext();
 
 	bool updatable();
@@ -28,7 +29,8 @@ struct UpdateContext {
 /**
  * @brief TODO
  */
-struct UpdateMgr {
+class UpdateMgr {
+public:
 	UpdateMgr();
 
 	void update();
@@ -42,7 +44,7 @@ struct UpdateMgr {
 	void showInfo(Graphics&, int, int);
 
 	int mSlotCount;             // _00, max possible client slots
-	int mClientCount;           // _04, current client count
+	int mClientTotal;           // _04, current client count
 	int* mClientSlotList;       // _08, each slot holds up to 10000 clients
 	int* mActiveClientSlotList; // _0C, each slot holds up to 10000 clients
 	int mCurrentIndex;          // _10

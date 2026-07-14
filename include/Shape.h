@@ -17,22 +17,22 @@
 #include "types.h"
 
 template <typename A, typename B>
-struct IDelegate2;
+class IDelegate2;
 
-struct AnimContext;
-struct AnimFrameCacher;
-struct Camera;
-struct CollTriInfo;
-struct CmdStream;
-struct DispList;
-struct Graphics;
-struct Joint;
-struct LFlareGroup;
+class AnimContext;
+class AnimFrameCacher;
+class Camera;
+class CollTriInfo;
+class CmdStream;
+class DispList;
+class Graphics;
+class Joint;
+class LFlareGroup;
 struct NBT;
-struct PVWTevInfo;
-struct RouteGroup;
-struct Texture;
-struct VtxMatrix;
+class PVWTevInfo;
+class RouteGroup;
+class Texture;
+class VtxMatrix;
 
 struct NBT {
 	Vector3f mNormal;   // _00
@@ -50,7 +50,8 @@ struct NBT {
 /**
  * @brief TODO
  */
-struct VtxMatrix {
+class VtxMatrix {
+public:
 	void read(RandomAccessStream& input)
 	{
 		int weights        = input.readShort();
@@ -71,7 +72,8 @@ struct VtxMatrix {
 /**
  * @brief TODO
  */
-struct Envelope {
+class Envelope {
+public:
 	Envelope()
 	{
 		mIndexCount   = 0;
@@ -89,7 +91,8 @@ struct Envelope {
 /**
  * @brief TODO
  */
-struct MtxGroup {
+class MtxGroup {
+public:
 	MtxGroup()
 	{
 		mDepLength  = 0;
@@ -110,8 +113,8 @@ struct MtxGroup {
  *
  * @note Size: 0x10.
  */
-struct ShapeDynMaterials {
-
+class ShapeDynMaterials {
+public:
 	/// Constructs an empty animated material container with no connections.
 	ShapeDynMaterials()
 	    : mNext(nullptr)
@@ -141,7 +144,8 @@ enum {
 /**
  * @brief TODO
  */
-struct DispList : public CoreNode {
+class DispList : public CoreNode {
+public:
 	DispList()
 	{
 		mFaceNode.initCore("");
@@ -168,7 +172,8 @@ struct DispList : public CoreNode {
 /**
  * @brief TODO
  */
-struct DlobjInfo : public GfxobjInfo {
+class DlobjInfo : public GfxobjInfo {
+public:
 	DlobjInfo();
 };
 
@@ -231,7 +236,8 @@ enum {
 /**
  * @brief TODO
  */
-struct BaseShape : public CoreNode {
+class BaseShape : public CoreNode {
+public:
 	BaseShape();
 
 	virtual void read(RandomAccessStream&); // _0C
@@ -364,7 +370,8 @@ struct BaseShape : public CoreNode {
  *
  * @note Size: 0x2B0.
  */
-struct Shape : public BaseShape {
+class Shape : public BaseShape {
+public:
 	Shape();
 
 	virtual void optimize(); // _10
@@ -378,7 +385,8 @@ struct Shape : public BaseShape {
  *
  * @note Size: 0x18.
  */
-struct CachedShape {
+class CachedShape {
+public:
 	CachedShape() { mPrev = mNext = this; }
 
 	inline void insertAfter(CachedShape* other)

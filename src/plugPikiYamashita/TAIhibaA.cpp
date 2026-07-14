@@ -23,7 +23,8 @@ DEFINE_PRINT("TAIhibaA")
 /**
  * @brief TODO
  */
-struct TAIeffectAttackEventCallBackHibaA : public TAIeffectAttackEventCallBack {
+class TAIeffectAttackEventCallBackHibaA : public TAIeffectAttackEventCallBack {
+public:
 	virtual bool hitCreature(TAIeffectAttackParam* param, Creature* target) // _08
 	{
 		InteractFire fire(target, gsys->getFrameTime() * param->mDamage);

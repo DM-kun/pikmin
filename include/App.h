@@ -13,8 +13,8 @@
  *
  * @note Size: 0x54.
  */
-struct GameApp : public BaseApp {
-
+class GameApp : public BaseApp {
+public:
 	/// Trivial with nothing further to delete.
 	virtual ~GameApp() { } // _30 (weak)
 

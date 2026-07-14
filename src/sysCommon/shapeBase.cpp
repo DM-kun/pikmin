@@ -1901,20 +1901,28 @@ void BaseShape::makeInstance(ShapeDynMaterials& animatedMats, int jointIdx)
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 0000B4
+ * @note UNUSED Size: 0000B4 (Matching by size)
  */
-void recShowInfos(Graphics&, ObjCollInfo*)
+void recShowInfos(Graphics& gfx, ObjCollInfo* info)
 {
-	// UNUSED FUNCTION
+	FOREACH_NODE(ObjCollInfo, info, currInfo)
+	{
+		if (currInfo->mCollType != OCT_Invalid) {
+			currInfo->showInfo(gfx, *gfx.mActiveMatrix);
+		}
+		if (currInfo->Child()) {
+			recShowInfos(gfx, static_cast<ObjCollInfo*>(currInfo->Child()));
+		}
+	}
 }
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 000074
+ * @note UNUSED Size: 000074 (Matching by size)
  */
-void BaseShape::drawobjcolls(Graphics&, Camera&)
+void BaseShape::drawobjcolls(Graphics& gfx, Camera& cam)
 {
-	// UNUSED FUNCTION
+	recShowInfos(gfx, static_cast<ObjCollInfo*>(mCollisionInfo.Child()));
 }
 
 /**
@@ -2543,7 +2551,7 @@ void BaseShape::read(RandomAccessStream& stream)
 		}
 	} while (chunkType != 0xFFFF);
 
-	if (stream.getPending()) {
+	if (stream.getPending() != 0) {
 		importIni(stream);
 	}
 
@@ -3217,12 +3225,10 @@ void AnimFrameCacher::updateInfo(AnimCacheInfo* info)
  */
 void AnimFrameCacher::removeOldest()
 {
-	TexCacheInfo* prev = (TexCacheInfo*)mInfo.mPrev;
-	void* p            = prev;
-	prev->remove();
-	*prev->_0C = nullptr;
-	mCache->cacheFree(p);
-	// UNUSED FUNCTION
+	AnimCacheInfo* oldest = static_cast<AnimCacheInfo*>(mInfo.mPrev);
+	mInfo.mPrev->remove();
+	*oldest->_0C = nullptr;
+	mCache->cacheFree(oldest);
 }
 
 /**
@@ -3360,7 +3366,7 @@ static inline void addMatrixWeights(register f32* animMtx, register f32* weighte
 void BaseShape::calcWeightedMatrices()
 {
 	for (int i = 0; i < mEnvelopeCount; i++) {
-		f32* animMtxFloats = (f32*)&mAnimMatrices[mJointCount + i];
+		f32* animMtxFloats = reinterpret_cast<f32*>(&mAnimMatrices[mJointCount + i].mMtx);
 #ifdef WIN32
 		for (int j = 0; j < 16; j++)
 #else
@@ -3478,11 +3484,16 @@ void BaseShape::calcJointWorldDir(Graphics& gfx, int index, Vector3f& worldDir)
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 000084
+ * @note UNUSED Size: 000084 (Matching by size)
  */
-void BaseShape::calcJointWorldScale(Graphics&, int, Vector3f&)
+void BaseShape::calcJointWorldScale(Graphics& gfx, int jointIdx, Vector3f& outVec)
 {
-	// UNUSED FUNCTION
+	if (jointIdx != -1) {
+		immut Matrix4f& animMtx = getAnimMatrix(jointIdx);
+
+		f32 scale = Vector3f(animMtx.mMtx[0][0], animMtx.mMtx[0][1], animMtx.mMtx[0][2]).length();
+		outVec.set(scale, scale, scale);
+	}
 }
 
 /**

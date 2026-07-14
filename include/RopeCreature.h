@@ -5,7 +5,7 @@
 #include "CreatureProp.h"
 #include "types.h"
 
-struct Shape;
+class Shape;
 
 /**
  * @brief TODO
@@ -26,7 +26,8 @@ struct RopeProp : public CreatureProp {
 /**
  * @brief TODO
  */
-struct RopeCreature : public Creature {
+class RopeCreature : public Creature {
+public:
 	RopeCreature(CreatureProp*);
 
 	virtual bool needShadow();       // _90 (weak)

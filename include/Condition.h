@@ -3,12 +3,13 @@
 
 #include "types.h"
 
-struct Creature;
+class Creature;
 
 /**
  * @brief TODO
  */
-struct Condition {
+class Condition {
+public:
 	Condition() { }
 
 	virtual bool satisfy(Creature*) immut { return true; } // _08

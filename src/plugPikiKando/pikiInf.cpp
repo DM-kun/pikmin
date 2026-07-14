@@ -6,6 +6,7 @@
 #include "PikiHeadItem.h"
 #include "gameflow.h"
 #include "sysNew.h"
+#include "teki.h"
 
 PikiInfMgr pikiInfMgr;
 
@@ -149,14 +150,13 @@ int PikiInfMgr::getTotal()
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 0000A4
+ * @note UNUSED Size: 0000A4 (Matching by size)
  */
 BaseInf::BaseInf()
 {
 	initCore("baseInf");
 	mPosition.set(0.0f, 0.0f, 0.0f);
 	mRotation.set(0.0f, 0.0f, 0.0f);
-	// UNUSED FUNCTION
 }
 
 /**
@@ -206,8 +206,8 @@ void BaseInf::loadCard(RandomAccessStream& card)
  */
 BPikiInf::BPikiInf()
 {
-	mPikiColour = mNextKeyIndex = 0;
-	// UNUSED FUNCTION
+	mNextKeyIndex = 0;
+	mPikiColour   = Blue;
 }
 
 /**
@@ -319,11 +319,17 @@ int MonoInfMgr::getFreeNum()
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 00008C
+ * @note UNUSED Size: 00008C (Matching by size)
  */
-void MonoInfMgr::saveCard(RandomAccessStream&)
+void MonoInfMgr::saveCard(RandomAccessStream& stream)
 {
-	// UNUSED FUNCTION
+	int freeNum = getFreeNum();
+	stream.writeInt(freeNum);
+	FOREACH_NODE(BaseInf, mActiveList.mChild, inf)
+	{
+		inf->saveCard(stream);
+	}
+	PRINT(" SAVE CARD ***** %d です\n", freeNum); // " SAVE CARD ***** there are %d\n"
 }
 
 /**
@@ -465,13 +471,12 @@ CreatureRestoreFun CreatureInfMgr::getRestoreFun(int type)
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 0000F4
+ * @note UNUSED Size: 0000F4 (Matching by size)
  */
 CreatureInf::CreatureInf()
 {
 	mObjType    = OBJTYPE_INVALID;
 	mCurrentDay = mRebirthDay = 0;
-	// UNUSED FUNCTION
 }
 
 /**
@@ -526,11 +531,28 @@ void CreatureInf::doRestore(Creature* owner)
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 000084
+ * @note UNUSED Size: 000084 (Matching by size)
  */
 void CreatureInfMgr::updateUseList()
 {
-	// UNUSED FUNCTION
+	FOREACH_NODE(CreatureInf, mActiveList.mChild, inf)
+	{
+		switch (inf->mObjType) {
+		case OBJTYPE_SluiceSoft:
+		case OBJTYPE_SluiceHard:
+		case OBJTYPE_SluiceBomb:
+		case OBJTYPE_SluiceBombHard:
+		{
+			itemMgr->addUseList(inf->mObjType);
+			break;
+		}
+		case OBJTYPE_Teki:
+		{
+			tekiMgr->mUsingType[inf->mObjInfo1] = true;
+			break;
+		}
+		}
+	}
 }
 
 /**
@@ -539,7 +561,7 @@ void CreatureInfMgr::updateUseList()
  */
 void CreatureInfMgr::restoreAll()
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**

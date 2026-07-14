@@ -357,7 +357,7 @@ static immut char* icon_pals[]  = { p_icon_palette };
  */
 void MemoryCard::GetBlockSize(s32)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -378,32 +378,29 @@ int MemoryCard::getGameFileOffset(int id)
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 00000C
+ * @note UNUSED Size: 00000C (Matching by size)
  */
 void* MemoryCard::getBannerPtr()
 {
 	return cardData;
-	// UNUSED FUNCTION
 }
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 000018
+ * @note UNUSED Size: 000018 (Matching by size)
  */
 void* MemoryCard::getOptionsPtr(int idx)
 {
 	return &cardData[getOptionsOffset(idx)];
-	// UNUSED FUNCTION
 }
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 000018
+ * @note UNUSED Size: 000018 (Matching by size)
  */
 void* MemoryCard::getGameFilePtr(int idx)
 {
 	return &cardData[getGameFileOffset(idx)];
-	// UNUSED FUNCTION
 }
 
 void* MemoryCard::FAKE_getGameFilePtr(int idx)
@@ -415,17 +412,16 @@ void* MemoryCard::FAKE_getGameFilePtr(int idx)
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 00006C
+ * @note UNUSED Size: 00006C (Matching by size)
  */
 RamStream* MemoryCard::getBannerStream()
 {
 	return new RamStream(getBannerPtr(), 0x2000);
-	// UNUSED FUNCTION
 }
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 000084
+ * @note UNUSED Size: 000084 (Matching by size)
  */
 RamStream* MemoryCard::getOptionsStream(int idx)
 {
@@ -434,7 +430,7 @@ RamStream* MemoryCard::getOptionsStream(int idx)
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 000088
+ * @note UNUSED Size: 000088 (Matching by size)
  */
 RamStream* MemoryCard::getGameFileStream(int idx)
 {
@@ -485,7 +481,7 @@ void MemoryCard::waitPolling()
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 000054
+ * @note UNUSED Size: 000054 (Nonmatching by size)
  */
 void MemoryCard::createFile(CARDStat& state)
 {
@@ -494,7 +490,6 @@ void MemoryCard::createFile(CARDStat& state)
 	gameflow.mGamePrefs.mMostRecentSaveIndex    = 0;
 	gsys->mIsCardSaving                         = TRUE;
 	memset(&state, 0, sizeof(CARDStat));
-	// UNUSED FUNCTION
 }
 
 /**
@@ -978,7 +973,7 @@ void MemoryCard::initBannerArea(CARDStat& state, immut char* p2)
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 000404
+ * @note UNUSED Size: 000404 (Matching by size)
  */
 void MemoryCard::initFileArea(int saveSlot, int p2)
 {
@@ -996,7 +991,6 @@ void MemoryCard::initFileArea(int saveSlot, int p2)
 	u32 sum = calcChecksum(getGameFilePtr(p2), 0x7FF8);
 	stream->writeInt(gameflow.mGamePrefs.mMostRecentSaveIndex);
 	stream->writeInt(sum);
-	// UNUSED FUNCTION
 }
 
 /**
@@ -1627,10 +1621,10 @@ bool MemoryCard::isFileBroken()
  */
 void MemoryCard::breakFile()
 {
+	TRAP_UNIMPLEMENTED;
 	static const char* sectionNames[] = {
 		"banner", "options 0", "options 1", "gamefile 0", "gamefile 1", "gamefile 2", "gamefile 3",
 	};
-	// UNUSED FUNCTION
 }
 
 /**

@@ -411,10 +411,10 @@ Grass* GrassGen::getRandomGrass()
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 000078
+ * @note UNUSED Size: 000078 (Matching by size)
  */
 WeedsGen::WeedsGen(Shape* shape, CreatureProp* props)
-    : ItemCreature(0, props, shape)
+    : ItemCreature(OBJTYPE_Weeds, props, shape)
 {
 	if (!shape) {
 		ERROR("ERR\n");
@@ -445,7 +445,7 @@ void WeedsGen::refresh(Graphics&)
 void WeedsGen::startAI(int ai)
 {
 	for (int i = 0; i < mWeedsCount; i++) {
-		Weed* gen = (Weed*)itemMgr->birth(OBJTYPE_Weed);
+		Weed* gen = static_cast<Weed*>(itemMgr->birth(OBJTYPE_Weed));
 		if (!gen) {
 			continue;
 		}
@@ -471,14 +471,13 @@ void WeedsGen::startAI(int ai)
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 000064
+ * @note UNUSED Size: 000064 (Matching by size)
  */
 Weed::Weed()
-    : ItemCreature(0, nullptr, nullptr)
+    : ItemCreature(OBJTYPE_Weed, nullptr, nullptr)
 {
 	mItemShapeObject = nullptr;
 	setCreatureFlag(CF_Unk1 | CF_EnableAirDrag);
-	// UNUSED FUNCTION
 }
 
 /**

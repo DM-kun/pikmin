@@ -4,20 +4,21 @@
 #include "CoreNode.h"
 #include "types.h"
 
-struct Creature;
-struct Vector3f;
+class Creature;
+class Vector3f;
 
 /**
  * @brief TODO
  */
-struct RadarInfo {
-
+class RadarInfo {
+public:
 	/**
 	 * @brief TODO
 	 *
 	 * @note Size: 0x18.
 	 */
-	struct PartsInfo : public CoreNode {
+	class PartsInfo : public CoreNode {
+	public:
 		PartsInfo()
 		    : mPart(nullptr)
 		{

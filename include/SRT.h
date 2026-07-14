@@ -4,7 +4,8 @@
 #include "Vector.h"
 #include "types.h"
 
-struct SRT {
+class SRT {
+public:
 	SRT() { }
 
 	SRT(const SRT& other)

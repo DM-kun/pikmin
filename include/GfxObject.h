@@ -3,15 +3,16 @@
 
 #include "ID32.h"
 
-struct AnimData;
-struct Shape;
-struct TexImg;
-struct Texture;
+class AnimData;
+class Shape;
+class TexImg;
+class Texture;
 
 /**
  * @brief TODO
  */
-struct GfxobjInfo {
+class GfxobjInfo {
+public:
 	GfxobjInfo()
 	{
 		mPrev = mNext = nullptr;
@@ -49,14 +50,16 @@ struct GfxobjInfo {
 /**
  * @brief TODO
  */
-struct GfxObject {
+class GfxObject {
+public:
 	virtual void attach() { } // _08
 	virtual void detach() { } // _0C
 
 	// TODO: members
 };
 
-struct ShpobjInfo : public GfxobjInfo {
+class ShpobjInfo : public GfxobjInfo {
+public:
 	ShpobjInfo()
 	    : mTarget(nullptr)
 	{

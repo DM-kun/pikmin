@@ -4,12 +4,13 @@
 #include "CoreNode.h"
 #include "types.h"
 
-struct MtxGroup;
+class MtxGroup;
 
 /**
  * @brief TODO
  */
-struct Mesh : public CoreNode {
+class Mesh : public CoreNode {
+public:
 	Mesh()
 	    : CoreNode("mesh")
 	{

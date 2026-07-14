@@ -9,23 +9,24 @@
 #include "Vector.h"
 #include "types.h"
 
-struct CmdStream;
-struct Creature;
-struct DynCollObject;
+class CmdStream;
+class Creature;
+class DynCollObject;
 struct DynCollShape;
-struct ObjCollInfo;
-struct CollInfo;
-struct CollPart;
-struct Shape;
-struct BaseShape;
-struct RoomInfo;
-struct RigidBody;
-struct Graphics;
+class ObjCollInfo;
+class CollInfo;
+class CollPart;
+class Shape;
+class BaseShape;
+class RoomInfo;
+class RigidBody;
+class Graphics;
 
 /**
  * @brief Collision-info node type.
  */
 enum ObjCollType {
+	OCT_Invalid  = 0, // value seen in `recShowInfos`
 	OCT_Sphere   = 1, // sphere collision primitive
 	OCT_Platform = 2, // platform collision (references an external Shape by name)
 };
@@ -55,7 +56,8 @@ enum CollPartType {
 /**
  * @brief Minimal room identifier parsed from a stream.
  */
-struct BaseRoomInfo {
+class BaseRoomInfo {
+public:
 	void read(RandomAccessStream& input) { mJointIndex = input.readInt(); }
 
 	int mJointIndex; // _00, room index
@@ -64,7 +66,8 @@ struct BaseRoomInfo {
 /**
  * @brief Room descriptor (currently identical to BaseRoomInfo).
  */
-struct RoomInfo : public BaseRoomInfo {
+class RoomInfo : public BaseRoomInfo {
+public:
 	// _00-_04 = BaseRoomInfo
 };
 
@@ -73,7 +76,8 @@ struct RoomInfo : public BaseRoomInfo {
  *
  * @note Size: 0x54.
  */
-struct ObjCollInfo : public CoreNode {
+class ObjCollInfo : public CoreNode {
+public:
 	ObjCollInfo()
 	    : CoreNode("")
 	{
@@ -93,7 +97,7 @@ struct ObjCollInfo : public CoreNode {
 
 	// unused/inlined:
 	void getCentreSize(Vector3f& centre, f32& radius);
-	void showInfo(Graphics& gfx, Matrix4f& mtx);
+	void showInfo(Graphics& gfx, immut Matrix4f& mtx) immut;
 	void saveini(immut char* path, RandomAccessStream& output);
 
 	// _00     = VTBL
@@ -115,7 +119,8 @@ struct ObjCollInfo : public CoreNode {
  *
  * @note Size: 0x1C.
  */
-struct CollPartUpdater {
+class CollPartUpdater {
+public:
 	virtual Vector3f getPos() = 0; // _08
 	virtual f32 getSize()     = 0; // _0C
 
@@ -131,7 +136,8 @@ struct CollPartUpdater {
  *
  * @note Size: 0x68.
  */
-struct CollPart {
+class CollPart {
+public:
 	CollPart();
 
 	bool isStickable();
@@ -187,7 +193,8 @@ struct CollPart {
 /**
  * @brief Collision event payload linking a collider to the parts involved.
  */
-struct CollEvent {
+class CollEvent {
+public:
 	CollEvent(Creature* collider, CollPart* colliderPart, CollPart* selfPart)
 	{
 		mCollider     = collider;
@@ -203,7 +210,8 @@ struct CollEvent {
 /**
  * @brief Predicate interface for filtering collision parts.
  */
-struct CndCollPart {
+class CndCollPart {
+public:
 	virtual bool satisfy(CollPart*) { return false; } // _08
 
 	// _00 = VTBL
@@ -230,8 +238,8 @@ struct CndBombable : public CndCollPart {
  *
  * @note Size: 0x14.
  */
-struct CollInfo {
-	friend struct CollPart; // Accesses `mCollParts` in `CollPart::getChild`/`getChildAt`/`getNext`.
+class CollInfo {
+	friend class CollPart; // Accesses `mCollParts` in `CollPart::getChild`/`getChildAt`/`getNext`.
 
 public:
 	CollInfo(int);
@@ -280,8 +288,8 @@ private:
 /**
  * @brief Serialized triangle collision info.
  */
-struct BaseCollTriInfo {
-
+class BaseCollTriInfo {
+public:
 	void read(RandomAccessStream& input)
 	{
 		mMapCode               = input.readInt();
@@ -305,9 +313,10 @@ struct BaseCollTriInfo {
 /**
  * @brief Triangle collision info with derived edge planes.
  *
- * @note Size: 0x58.
+ * @note Size: 0x58 (0x64 in the DLL).
  */
-struct CollTriInfo : public BaseCollTriInfo {
+class CollTriInfo : public BaseCollTriInfo {
+public:
 	CollTriInfo() { }
 
 	void init(RoomInfo* roomInfo, immut Vector3f* vertices);
@@ -328,6 +337,9 @@ struct CollTriInfo : public BaseCollTriInfo {
 
 	// _00-_28 = BaseCollTriInfo
 	Plane mEdgePlanes[3]; // _28, edge half-space planes derived from triangle vertices - normals face inwards.
+#if defined(WIN32)        //
+	u8 _58[0x64 - 0x58];  // _58
+#endif
 };
 
 /**
@@ -335,8 +347,8 @@ struct CollTriInfo : public BaseCollTriInfo {
  *
  * @note Size: 0x24.
  */
-struct CollGroup {
-
+class CollGroup {
+public:
 	/// Default constructor - resets lists, counts and room index.
 	CollGroup()
 	{
@@ -361,8 +373,8 @@ struct CollGroup {
 /**
  * @brief Single collision contact.
  */
-struct Collision {
-
+class Collision {
+public:
 	/// Default constructor (trivial).
 	Collision() { }
 
@@ -378,8 +390,8 @@ struct Collision {
  *
  * @note Size: 0x180.
  */
-struct CollState {
-
+class CollState {
+public:
 	/**
 	 * @brief Status of collision state. Largely guesses from what remains of the functionality.
 	 */

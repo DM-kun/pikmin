@@ -7,7 +7,8 @@
 /**
  * @brief A generic "event" structure, used solely for the unused Key/Lock system.
  */
-struct Event {
+class Event {
+public:
 	Event(int unk, u32 id)
 	{
 		_00 = unk;
@@ -21,7 +22,8 @@ struct Event {
 /**
  * @brief TODO
  */
-struct EventListener : public CoreNode {
+class EventListener : public CoreNode {
+public:
 	inline EventListener()
 	{
 		mParent = mNext = mChild = nullptr;

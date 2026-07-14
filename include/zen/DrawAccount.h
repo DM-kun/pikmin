@@ -4,14 +4,15 @@
 #include "types.h"
 #include "zen/DrawCommon.h"
 
-struct Graphics;
+class Graphics;
 
 namespace zen {
 
 /**
  * @brief TODO
  */
-struct AccountData {
+class AccountData {
+public:
 	AccountData()
 	{
 		mMinPikiNum  = 0;
@@ -41,7 +42,7 @@ struct AccountData {
  *
  * @note Size: 0x120.
  */
-struct DrawAccount : public DrawScreen {
+class DrawAccount : public DrawScreen {
 public:
 	DrawAccount();
 

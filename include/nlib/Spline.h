@@ -6,18 +6,18 @@
 #include "nlib/Geometry3D.h"
 #include "types.h"
 
-struct NPolynomialFunction;
-struct NPosture3D;
-struct NTransform3D;
-struct NVector3f;
-struct Stream;
+class NPolynomialFunction;
+class NPosture3D;
+class NTransform3D;
+class NVector3f;
+class Stream;
 
 /**
  * @brief TODO
  */
 template <typename T>
-struct NPool {
-
+class NPool {
+public:
 	void newObject();
 	void deleteObject(T*);
 	void deleteObject(int);
@@ -30,7 +30,7 @@ struct NPool {
 /**
  * @brief TODO
  */
-struct SplineSegment {
+class SplineSegment {
 public:
 	SplineSegment();
 
@@ -72,7 +72,7 @@ protected:
 /**
  * @brief TODO
  */
-struct SplineKeyFrame {
+class SplineKeyFrame {
 public:
 	SplineKeyFrame(); // unused/inlined
 

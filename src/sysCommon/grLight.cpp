@@ -1,5 +1,6 @@
 #include "Camera.h"
 #include "DebugLog.h"
+#include "Graphics.h"
 #include "Light.h"
 #include "sysMath.h"
 
@@ -179,11 +180,17 @@ void Light::setLightSpot(f32 angle, int spotMode)
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 00002C
+ * @note UNUSED Size: 00002C (Matching by size)
  */
 void Light::setLightParallel()
 {
-	// UNUSED FUNCTION
+	mConstantAttn   = 1.0f;
+	mQuadAttn       = 0.0f;
+	mLinearAttn     = 0.0f;
+	mSpotConstTerm  = 1.0f;
+	mSpotQuadTerm   = 0.0f;
+	mSpotLinearTerm = 0.0f;
+	mLightValuesSet = 1;
 }
 
 /**
@@ -197,9 +204,8 @@ void Light::calcLightSizes()
 		mMapRadius = -1.0f;
 		int i;
 		for (i = 0; i < 0x4000; i += 8) {
-			// This exact formula probably isn't written like this, but it's what Ghidra
-			// worked it out to be and the function matches by size with it, so whatever.
-			f32 local_10 = 1.0f / (i * mQuadAttn * i + i * mLinearAttn + mConstantAttn);
+			f32 local_10 = 1.0f / (mConstantAttn + mLinearAttn * i + mQuadAttn * SQUARE(i));
+
 			if (mObjRadius == -1.0f && local_10 < _48) {
 				mObjRadius = i;
 			}
@@ -239,11 +245,35 @@ f32 Light::calcLightObjRadius()
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 0001C4
+ * @note UNUSED Size: 0001C4 (Matching by size)
  */
-void Light::refresh(Graphics&, LFlareGroup*)
+void Light::refresh(Graphics& gfx, LFlareGroup* flareGroup)
 {
-	// UNUSED FUNCTION
+	switch (GET_LIGHT_TYPE(mLightFlag)) {
+	case LIGHT_Point:
+	{
+		f32 lightMapRadius = calcLightMapRadius();
+		f32 lightObjRadius = calcLightObjRadius();
+
+		gfx.setColour(mDiffuseColour, true);
+		gfx.useTexture(nullptr, GX_TEXMAP0);
+		bool oldLighting = gfx.setLighting(false, nullptr);
+		gfx.drawSphere(mPosition, lightMapRadius, gfx.mCamera->mLookAtMtx);
+		gfx.setLighting(oldLighting, nullptr);
+
+		if (flareGroup) {
+			Vector3f pos(mPosition);
+			pos.multMatrix(gfx.mCamera->mLookAtMtx);
+			flareGroup->addLFlare(mDiffuseColour, pos, Vector2f(lightMapRadius / 4.0f, lightMapRadius / 4.0f), nullptr, nullptr);
+		}
+		break;
+	}
+	case LIGHT_Spot:
+	{
+		mFrustum->draw(gfx);
+		break;
+	}
+	}
 }
 
 /**

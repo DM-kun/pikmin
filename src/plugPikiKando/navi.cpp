@@ -38,6 +38,7 @@
 #include "UfoItem.h"
 #include "UtEffect.h"
 #include "WorkObject.h"
+#include "bugprint.h"
 #include "gameflow.h"
 #include "jaudio/piki_player.h"
 #include "sysMath.h"
@@ -430,6 +431,12 @@ Navi::Navi(CreatureProp* props, int naviID)
     : Creature(props)
 {
 	mLowerMotionCooldown = 4;
+
+#if defined(WIN32)
+	mLociCount = 32;
+	mLoci      = new Locus[mLociCount];
+#endif
+
 	memStat->start("naviCaster");
 
 	// never added to the global draw list, so never used
@@ -512,16 +519,16 @@ Navi::Navi(CreatureProp* props, int naviID)
  */
 void Navi::Locus::update()
 {
-	f32 speed = gsys->getFrameTime() * 2.4f;
-	mPosition = mPosition + mVelocity * speed;
+	f32 time  = gsys->getFrameTime() * 2.4f;
+	mPosition = mPosition + mVelocity * time;
 	mEffect.updatePos(mPosition);
 
-	if (mPosition.y < mapMgr->getMinY(mPosition.x, mPosition.z, true)) {
-		mIsInactive = true;
+	if (mPosition.y < mMapMgr->getMinY(mPosition.x, mPosition.z, true)) {
+		mCanBeThrown = TRUE;
 		mEffect.kill();
 	}
 
-	mVelocity.y -= AIConstant::_instance->mConstants.mGravity() * speed;
+	mVelocity.y -= AICONST.mGravity() * time;
 }
 
 /**
@@ -817,7 +824,7 @@ void Navi::update()
 			if (mNoPluckTimer > NAVI_PROP.mPostPluckZoomOutTime()) {
 				mIsPlucking       = false;
 				mFastPluckKeyTaps = 0;
-				PRINT_GLOBAL("< camera FINISH MOTION");
+				BUGPRINT("< camera FINISH MOTION");
 				cameraMgr->mCamera->finishMotion();
 				cameraMgr->mCamera->mControlsEnabled = true;
 				mNoPluckTimer                        = 0;
@@ -1034,12 +1041,12 @@ void Navi::callPikis(f32 radius)
 			piki->getState();
 		}
 
-		if (AIConstant::_instance->mConstants.mDoPluckWithCursor() && (mNaviID == piki->mPlayerId || piki->mPlayerId == -1)
-		    && piki->isBuried() && piki->getState() == PIKISTATE_Bury && dist < radius) {
+		if (AICONST.mDoPluckWithCursor() && (mNaviID == piki->mPlayerId || piki->mPlayerId == -1) && piki->isBuried()
+		    && piki->getState() == PIKISTATE_Bury && dist < radius) {
 			piki->mNavi = this;
 			piki->mFSM->transit(piki, PIKISTATE_AutoNuki);
 			// Why would you put an `ERROR` here?  Just don't enable it??
-			TERNARY_BUGFIX(, ERROR("cursor nuki!\n"));
+			TERNARY_BUILD_MATCHING(ERROR("cursor nuki!\n"), );
 		}
 	}
 
@@ -1051,13 +1058,13 @@ void Navi::callPikis(f32 radius)
 			PikiHeadItem* sprout = static_cast<PikiHeadItem*>(maybeSprout);
 			Vector3f sproutSep   = maybeSprout->mSRT.t - mCursorWorldPos;
 			f32 sproutDist       = speedy_sqrtf(sproutSep.x * sproutSep.x + sproutSep.z * sproutSep.z);
-			if (!AIConstant::_instance->mConstants.mDoPluckWithCursor()) {
+			if (!AICONST.mDoPluckWithCursor()) {
 				continue;
 			}
 
 			if (sprout->canPullout() && sproutDist < radius) {
 				// Why would you put an `ERROR` here?  Just don't enable it??
-				TERNARY_BUGFIX(, ERROR("cursor nuki!\n"));
+				TERNARY_BUILD_MATCHING(ERROR("cursor nuki!\n"), );
 				PikiMgr::meBirthMode = true;
 				Piki* piki           = static_cast<Piki*>(pikiMgr->birth());
 				PikiMgr::meBirthMode = false;
@@ -1404,7 +1411,7 @@ bool Navi::procActionButton()
 		if (DelayPikiBirth) {
 			mPressedTimer = 0.0f;
 			startMotion(PaniMotionInfo(PIKIANIM_Asibumi), PaniMotionInfo(PIKIANIM_Asibumi));
-			PRINT_GLOBAL("nuki d=%.1f rn=%d", minDist, mFastPluckKeyTaps);
+			BUGPRINT("nuki d=%.1f rn=%d", minDist, mFastPluckKeyTaps);
 			Vector3f sproutSep = closestSprout->mSRT.t - mSRT.t;
 			_7D0               = angDist(roundAng(atan2f(sproutSep.x, sproutSep.z)), mFaceDirection) / 10.0f;
 			f32 dist           = sproutSep.length();
@@ -2148,7 +2155,7 @@ void Navi::renderCircle(Graphics& gfx)
 /**
  * @todo: Documentation
  */
-void Navi::refresh2d(Graphics&)
+void Navi::refresh2d(Graphics& gfx)
 {
 }
 
@@ -2247,7 +2254,7 @@ bool InteractWind::actNavi(Navi* navi) immut
  */
 bool InteractSuck::actNavi(Navi* navi) immut
 {
-	PRINT_GLOBAL("actNavi");
+	BUGPRINT("actNavi");
 	if (!navi->isAlive()) {
 		return false;
 	}
@@ -2263,21 +2270,21 @@ bool InteractSuck::actNavi(Navi* navi) immut
 		return false;
 	}
 
-	PRINT_GLOBAL("invicible check false");
+	BUGPRINT("invicible check false");
 	navi->mHealth -= mDamage;
-	PRINT_GLOBAL("life = %.1f", navi->mHealth);
+	BUGPRINT("life = %.1f", navi->mHealth);
 
 	navi->mLifeGauge.updValue(navi->mHealth, C_NAVI_PROP(navi).mHealth());
 	rumbleMgr->start(RUMBLE_Unk15, 0, nullptr);
-	PRINT_GLOBAL("lgauge");
+	BUGPRINT("lgauge");
 	navi->startDamageEffect();
-	PRINT_GLOBAL("dmg eff");
+	BUGPRINT("dmg eff");
 	if (navi->mHealth <= 1.0f) {
 		GameCoreSection::startPause(COREPAUSE_Unk1 | COREPAUSE_Unk3 | COREPAUSE_Unk16);
 		navi->mStateMachine->transit(navi, NAVISTATE_Dead);
-		PRINT_GLOBAL("navi dead");
+		BUGPRINT("navi dead");
 	}
-	PRINT_GLOBAL(">");
+	BUGPRINT(">");
 
 	return true;
 }
@@ -2491,12 +2498,12 @@ bool InteractFire::actNavi(Navi* navi) immut
 void Navi::dump()
 {
 	if (Piki::directDumpMode) {
-		PRINT_GLOBAL("-- navi : mode = %d\n", mStateMachine->getCurrID(this));
-		PRINT_GLOBAL(" onground : %s isFlying %s\n", isCreatureFlag(CF_IsOnGround) ? "true" : "false",
-		             isCreatureFlag(CF_IsFlying) ? "true" : "false");
-		PRINT_GLOBAL(" isAlive=%s isVisible=%s isBuried=%s\n", isAlive() ? "true" : "false", isVisible() ? "true" : "false",
-		             isBuried() ? "true" : "false");
-		PRINT_GLOBAL(" neutralTime = %.2f\n", mNeutralTime);
+		BUGPRINT("-- navi : mode = %d\n", mStateMachine->getCurrID(this));
+		BUGPRINT(" onground : %s isFlying %s\n", isCreatureFlag(CF_IsOnGround) ? "true" : "false",
+		         isCreatureFlag(CF_IsFlying) ? "true" : "false");
+		BUGPRINT(" isAlive=%s isVisible=%s isBuried=%s\n", isAlive() ? "true" : "false", isVisible() ? "true" : "false",
+		         isBuried() ? "true" : "false");
+		BUGPRINT(" neutralTime = %.2f\n", mNeutralTime);
 	} else {
 		PRINT("-- navi : mode = %d\n", mStateMachine->getCurrID(this));
 		PRINT(" onground : %s isFlying %s\n", isCreatureFlag(CF_IsOnGround) ? "true" : "false",
@@ -2517,19 +2524,19 @@ void Navi::throwPiki(Piki* piki, immut Vector3f& pos)
 	rumbleMgr->start(RUMBLE_Unk2, 0, nullptr);
 	piki->mSRT.t         = mSRT.t + Vector3f(0.0f, 10.0f, 0.0f);
 	Vector3f throwDir    = pos - piki->mSRT.t;
-	f32 throwDist        = speedy_sqrtf(throwDir.x * throwDir.x + throwDir.z * throwDir.z);
+	f32 throwDist        = speedy_sqrtf(SQUARE(throwDir.x) + SQUARE(throwDir.z));
 	f32 throwAngle       = atan2f(throwDir.x, throwDir.z);
 	piki->mFaceDirection = roundAng(throwAngle);
 
 	f32 halfTime = 0.5f * NAVI_PROP._1AC();
-	f32 height;
+	f32 throwHeight;
 	if (piki->mColor == Yellow) {
-		height = NAVI_PROP._19C();
+		throwHeight = NAVI_PROP._19C();
 	} else {
-		height = NAVI_PROP._18C() + (mThrowHoldTime / NAVI_PROP._14C()) * (NAVI_PROP._17C() - NAVI_PROP._18C());
+		throwHeight = NAVI_PROP._18C() + (mThrowHoldTime / NAVI_PROP._14C()) * (NAVI_PROP._17C() - NAVI_PROP._18C());
 	}
 
-	f32 vSpeed = AIConstant::_instance->mConstants.mGravity() * 0.5f * halfTime + (height / halfTime);
+	f32 vSpeed = AICONST.mGravity() * 0.5f * halfTime + (throwHeight / halfTime);
 	f32 hSpeed = throwDist / (2.0f * halfTime);
 
 	piki->mVelocity.set(hSpeed * sinf(throwAngle), vSpeed, hSpeed * cosf(throwAngle));
@@ -2541,11 +2548,41 @@ void Navi::throwPiki(Piki* piki, immut Vector3f& pos)
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 0001DC
+ * @note UNUSED Size: 0001DC (Matching by size)
  */
-void Navi::throwLocus(Vector3f&)
+void Navi::throwLocus(immut Vector3f& pos)
 {
-	// UNUSED FUNCTION
+	Locus* locus = nullptr;
+	for (int i = 0; i < mLociCount; ++i) {
+		if (mLoci[i].mCanBeThrown == TRUE) {
+			locus = &mLoci[i];
+		}
+	}
+	if (!locus) {
+		return;
+	}
+	locus->mMapMgr = mapMgr;
+
+	f32 unused        = mFaceDirection + PI;
+	locus->mPosition  = mSRT.t + Vector3f(0.0f, 10.0f, 0.0f);
+	Vector3f throwDir = pos - locus->mPosition;
+	f32 throwDist     = speedy_sqrtf(SQUARE(throwDir.x) + SQUARE(throwDir.z));
+	f32 throwAngle    = atan2f(throwDir.x, throwDir.z);
+
+	f32 halfTime = 0.5f * NAVI_PROP._1AC();
+	f32 throwHeight;
+	if (mNextThrowPiki->mColor == Yellow) {
+		throwHeight = NAVI_PROP._19C();
+	} else {
+		throwHeight = NAVI_PROP._18C() + (mThrowHoldTime / NAVI_PROP._14C()) * (NAVI_PROP._17C() - NAVI_PROP._18C());
+	}
+
+	f32 vSpeed = AICONST.mGravity() * 0.5f * halfTime + (throwHeight / halfTime);
+	f32 hSpeed = throwDist / (2.0f * halfTime);
+
+	locus->mVelocity.set(hSpeed * sinf(throwAngle), vSpeed, hSpeed * cosf(throwAngle));
+	locus->mEffect.changeEffect(EffectMgr::EFF_Navi_LightGlow);
+	locus->mCanBeThrown = FALSE;
 }
 
 /**

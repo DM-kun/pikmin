@@ -4,14 +4,14 @@
 #include "sysNew.h"
 #include "types.h"
 
-struct Stream;
+class Stream;
 
 /**
  * @brief TODO
  */
 template <typename T>
-struct ParaParameterInfo {
-
+class ParaParameterInfo {
+public:
 	void init(immut char* name, T min, T max)
 	{
 		mName = name;
@@ -28,7 +28,8 @@ struct ParaParameterInfo {
  * @brief TODO
  */
 template <typename T>
-struct ParaParameters {
+class ParaParameters {
+public:
 	ParaParameters(int count, ParaParameterInfo<T>* info)
 	{
 		mParaCount = count;
@@ -77,7 +78,8 @@ struct ParaParameters {
 /*
  * @brief TODO
  */
-struct ParaParameterInfoI : public ParaParameterInfo<int> {
+class ParaParameterInfoI : public ParaParameterInfo<int> {
+public:
 	ParaParameterInfoI()
 	{
 		mName = nullptr;
@@ -104,7 +106,8 @@ struct ParaParametersI : public ParaParameters<int> {
 /*
  * @brief TODO
  */
-struct ParaParameterInfoF : public ParaParameterInfo<f32> {
+class ParaParameterInfoF : public ParaParameterInfo<f32> {
+public:
 	ParaParameterInfoF()
 	{
 		mName = nullptr;
@@ -131,7 +134,8 @@ struct ParaParametersF : public ParaParameters<f32> {
 /**
  * @brief TODO
  */
-struct ParaMultiParameters {
+class ParaMultiParameters {
+public:
 	ParaMultiParameters(int, ParaParameterInfoI*, int, ParaParameterInfoF*);
 
 	void input(ParaMultiParameters&);

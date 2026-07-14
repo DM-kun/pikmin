@@ -50,7 +50,7 @@ ASM u32 OSGetTick(void)
  */
 void __SetTime(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -59,7 +59,7 @@ void __SetTime(void)
  */
 void __OSSetTime(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -80,21 +80,24 @@ OSTime __OSGetSystemTime(void)
 
 /**
  * @TODO: Documentation
- * @note UNUSED Size: 000008
+ * @note UNUSED Size: 000008 (Matching by size)
  */
-void __OSSetTick(void)
+ASM void __OSSetTick(register u32 tick)
 {
-	// UNUSED FUNCTION
+#ifdef __MWERKS__ // clang-format off
+	nofralloc
+	mttbl  tick  // An educated guess
+	blr
+#endif // clang-format on
 }
 
 /**
  * @TODO: Documentation
- * @note UNUSED Size: 000088
+ * @note UNUSED Size: 000088 (Matching by size)
  */
 static BOOL IsLeapYear(s32 year)
 {
 	return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
-	// UNUSED FUNCTION
 }
 
 /**
@@ -103,12 +106,12 @@ static BOOL IsLeapYear(s32 year)
  */
 void GetYearDays(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
  * @TODO: Documentation
- * @note UNUSED Size: 000050
+ * @note UNUSED Size: 000050 (Matching by size)
  */
 static s32 GetLeapDays(s32 year)
 {
@@ -116,7 +119,6 @@ static s32 GetLeapDays(s32 year)
 		return 0;
 	}
 	return (year + 3) / 4 - (year - 1) / 100 + (year - 1) / 400;
-	// UNUSED FUNCTION
 }
 
 /**
@@ -188,5 +190,5 @@ void OSTicksToCalendarTime(OSTime ticks, OSCalendarTime* cal)
  */
 OSTime OSCalendarTimeToTicks(OSCalendarTime*)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }

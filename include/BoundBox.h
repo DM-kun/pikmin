@@ -3,9 +3,10 @@
 
 #include "Vector.h"
 
-struct Graphics;
+class Graphics;
 
-struct BoundBox {
+class BoundBox {
+public:
 	BoundBox(immut Vector3f& min, immut Vector3f& max)
 	{
 		mMin = min;

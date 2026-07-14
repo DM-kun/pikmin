@@ -18,11 +18,14 @@ DEFINE_PRINT("P2DGrafContext");
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 00009C
+ * @note UNUSED Size: 00009C (Matching by size)
  */
-P2DGrafContext::P2DGrafContext(const PUTRect&)
+P2DGrafContext::P2DGrafContext(const PUTRect& rect)
+    : mViewportBounds(rect)
+    , mScissorBounds(rect)
 {
-	// UNUSED FUNCTION
+	setColor(COLOUR_WHITE);
+	setLineWidth(6);
 }
 
 /**
@@ -168,7 +171,7 @@ void P2DGrafContext::setLineWidth(u8 width)
  */
 void P2DGrafContext::fillBox(const PUTRect&)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -177,7 +180,7 @@ void P2DGrafContext::fillBox(const PUTRect&)
  */
 void P2DGrafContext::drawFrame(const PUTRect&)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -186,7 +189,7 @@ void P2DGrafContext::drawFrame(const PUTRect&)
  */
 void P2DGrafContext::line(PUTPoint, PUTPoint)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -195,7 +198,7 @@ void P2DGrafContext::line(PUTPoint, PUTPoint)
  */
 void P2DGrafContext::lineTo(PUTPoint)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -204,7 +207,7 @@ void P2DGrafContext::lineTo(PUTPoint)
  */
 void P2DGrafContext::polyline(PUTPoint* param_1, int param_2)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 	if (param_2 > 1) {
 		PRINT("polyline \n");
 	}
@@ -216,7 +219,7 @@ void P2DGrafContext::polyline(PUTPoint* param_1, int param_2)
  */
 void P2DGrafContext::polyline(int* param_1, int param_2)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 	if (param_2 > 1) {
 		PRINT("polyline \n");
 	}
@@ -228,7 +231,7 @@ void P2DGrafContext::polyline(int* param_1, int param_2)
  */
 void P2DGrafContext::polylineTo(PUTPoint* param_1, int param_2)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 	PRINT("polylineTo \n");
 	// more stuff
 }
@@ -239,7 +242,7 @@ void P2DGrafContext::polylineTo(PUTPoint* param_1, int param_2)
  */
 void P2DGrafContext::polylineTo(int* param_1, int param_2)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 	PRINT("polyLineTo \n");
 	// more stuff
 }

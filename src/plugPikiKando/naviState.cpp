@@ -27,6 +27,7 @@
 #include "Stickers.h"
 #include "UfoItem.h"
 #include "UtilityKando.h"
+#include "bugprint.h"
 #include "gameflow.h"
 #include "sysNew.h"
 #include "teki.h"
@@ -210,7 +211,7 @@ void NaviDemoWaitState::init(Navi* navi)
 	if (navi->mGoalItem) {
 		navi->mGoalItem->setSpotActive(false);
 	}
-	PRINT_GLOBAL("orima demo wait start");
+	BUGPRINT("orima demo wait start");
 }
 
 /**
@@ -228,7 +229,7 @@ void NaviDemoWaitState::exec(Navi* navi)
 
 		PRINT("RETURN TO WALK : MOVIE END \n");
 		if (navi->isDamaged()) {
-			PRINT_GLOBAL("finish orima damage");
+			BUGPRINT("finish orima damage");
 			navi->finishDamage();
 		}
 
@@ -715,7 +716,7 @@ void NaviWalkState::exec(Navi* navi)
 
 	if (navi->mKontroller->keyClick(KeyConfig::_instance->mThrowKey.mBind)) {
 
-		if (AIConstant::_instance->mConstants._E4()) {
+		if (AICONST._E4()) {
 			if (KeyConfig::_instance->mThrowKey.mBind == KeyConfig::_instance->mExtractKey.mBind) {
 				if (!navi->procActionButton()) {
 					transit(navi, NAVISTATE_ThrowWait);
@@ -887,7 +888,7 @@ void NaviUfoState::exec(Navi* navi)
 			} else {
 				navi->mFaceDirection = roundAng(navi->mFaceDirection + 0.1f * rotDelta);
 				if (--mPunchCooldownTimer <= 0) {
-					PRINT_GLOBAL("ang timer done\n");
+					BUGPRINT("ang timer done\n");
 					navi->startMotion(PaniMotionInfo(PIKIANIM_Punch, navi), PaniMotionInfo(PIKIANIM_Punch));
 					mState = 1;
 					PRINT("ang time out recover !!\n");
@@ -897,7 +898,7 @@ void NaviUfoState::exec(Navi* navi)
 
 		} else if (!navi->mOdoMeter.moving(navi->mSRT.t, mLastPosition)) {
 			PRINT("giveup using odometer!\n");
-			PRINT_GLOBAL("giveup using odometer");
+			BUGPRINT("giveup using odometer");
 			navi->startMotion(PaniMotionInfo(PIKIANIM_Punch, navi), PaniMotionInfo(PIKIANIM_Punch));
 			mState = 1;
 			effectMgr->create(EffectMgr::EFF_Rocket_NaviRecover, navi->mSRT.t, nullptr, nullptr);
@@ -996,8 +997,8 @@ void NaviContainerState::init(Navi* navi)
 	PRINT("START CONAINER WINDOW ***\n");
 	gameflow.mGameInterface->message(MOVIECMD_HideHUD, 0);
 	containerWindow->start((zen::DrawContainer::containerType)navi->mGoalItem->mOnionColour, storedPikisAvailable, 10000,
-	                       numOnionColoredPikis, AIConstant::_instance->mConstants.mMaxPikisOnField(),
-	                       totalExitPendingPikis + GameStat::mapPikis, AIConstant::_instance->mConstants.mMaxPikisOnField());
+	                       numOnionColoredPikis, AICONST.mMaxPikisOnField(), totalExitPendingPikis + GameStat::mapPikis,
+	                       AICONST.mMaxPikisOnField());
 	PRINT("FINISH START CONAINER WINDOW ***\n");
 	gameflow.mPauseAll = TRUE;
 	mContainerWinEvent = 0;
@@ -2235,7 +2236,7 @@ void NaviPushState::exec(Navi* navi)
 		return;
 	}
 
-	if (navi->mWallCollObj && AIConstant::_instance->mConstants._64()) {
+	if (navi->mWallCollObj && AICONST._64()) {
 		Vector3f dir(sinf(navi->mFaceDirection), 0.0f, cosf(navi->mFaceDirection));
 		navi->mWallCollObj->applyVelocity(*navi->mWallPlane, navi->mSRT.t, dir);
 	}
@@ -2259,7 +2260,7 @@ void NaviPushState::procAnimMsg(Navi* navi, MsgAnim* msg)
 	switch (msg->mKeyEvent->mEventType) {
 	case KEY_LoopEnd:
 	{
-		if (navi->mWallCollObj && !AIConstant::_instance->mConstants._64()) {
+		if (navi->mWallCollObj && !AICONST._64()) {
 			Vector3f dir(sinf(navi->mFaceDirection), 0.0f, cosf(navi->mFaceDirection));
 			dir = dir * 4.0f;
 			navi->mWallCollObj->applyVelocity(*navi->mWallPlane, navi->mSRT.t, dir);
@@ -2389,12 +2390,12 @@ void NaviNukuState::init(Navi* navi)
 	_10                 = C_NAVI_PROP(navi)._1CC();
 	if (navi->mIsCursorVisible && !playerState->isChallengeMode() && !navi->mIsPlucking && playerState->mTotalPluckedPikiCount < 100) {
 		cameraMgr->mCamera->startMotion(cameraMgr->mCamera->mAttentionInfo);
-		PRINT_GLOBAL("> camera START MOTION | NUKU");
+		BUGPRINT("> camera START MOTION | NUKU");
 		navi->mIsPlucking                    = true;
 		cameraMgr->mCamera->mControlsEnabled = false;
 	}
 
-	if (!AIConstant::_instance->mConstants._54()) {
+	if (!AICONST._54()) {
 		navi->_930 = false;
 	}
 	navi->_930 = false;

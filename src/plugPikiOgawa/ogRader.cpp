@@ -28,11 +28,10 @@ DEFINE_ERROR(__LINE__) // Never used in the DLL
 DEFINE_PRINT("OgRaderSection")
 
 namespace zen {
-static f32 map_area_data[5][3] = { { -698.0f, 2024.0f, 2880.0f },
-	                               { -334.0f, 2024.0f, 2880.0f },
-	                               { -170.0f, 554.0f, 2654.0f },
-	                               { -480.0f, 160.0f, 3950.0f },
-	                               { -44.0f, 1504.0f, 2322.0f } };
+static f32 map_area_data[5][3] = {
+	{ -698.0f, 2024.0f, 2880.0f }, { -334.0f, 2024.0f, 2880.0f }, { -170.0f, 554.0f, 2654.0f },
+	{ -480.0f, 160.0f, 3950.0f },  { -44.0f, 1504.0f, 2322.0f },
+};
 }; // namespace zen
 
 /**
@@ -82,37 +81,37 @@ zen::ogRaderMgr::ogRaderMgr()
 	switch (stage)
 #endif
 	{
-	case 0:
+	case STAGE_Practice:
 	{
-		_54 = 0;
+		_54 = STAGE_Practice;
 		screen->set("screen/blo/p_map00.blo", true);
 		_4C = (P2DPicture*)screen->search('map0', true);
 		break;
 	}
-	case 1:
+	case STAGE_Forest:
 	{
-		_54 = 1;
+		_54 = STAGE_Forest;
 		screen->set("screen/blo/p_map01.blo", true);
 		_4C = (P2DPicture*)screen->search('map1', true);
 		break;
 	}
-	case 2:
+	case STAGE_Cave:
 	{
-		_54 = 2;
+		_54 = STAGE_Cave;
 		screen->set("screen/blo/p_map02.blo", true);
 		_4C = (P2DPicture*)screen->search('map2', true);
 		break;
 	}
-	case 3:
+	case STAGE_Yakushima:
 	{
-		_54 = 3;
+		_54 = STAGE_Yakushima;
 		screen->set("screen/blo/p_map03.blo", true);
 		_4C = (P2DPicture*)screen->search('map3', true);
 		break;
 	}
-	case 4:
+	case STAGE_Last:
 	{
-		_54 = 4;
+		_54 = STAGE_Last;
 		screen->set("screen/blo/p_map04.blo", true);
 		_4C = (P2DPicture*)screen->search('map4', true);
 		break;
@@ -214,7 +213,7 @@ zen::ogRaderMgr::ogRaderMgr()
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 00003C
+ * @note UNUSED Size: 00003C (Matching by size)
  */
 void zen::ogRaderMgr::setRaderScale(f32 scale)
 {
@@ -222,19 +221,17 @@ void zen::ogRaderMgr::setRaderScale(f32 scale)
 	_42C = scale;
 	_420->setScale(_428);
 	_424->setScale(_428 / 10.0f);
-	// UNUSED FUNCTION
 }
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 00004C
+ * @note UNUSED Size: 00004C (Matching by size)
  */
 void zen::ogRaderMgr::chaseRaderScale(f32 scale)
 {
 	_428 += (scale - _428) / 5.0f;
 	_420->setScale(_428);
 	_424->setScale(_428 / 10.0f);
-	// UNUSED FUNCTION
 }
 
 /**
@@ -424,22 +421,23 @@ void zen::ogRaderMgr::startSub()
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 000084
+ * @note UNUSED Size: 000084 (Matching by size)
  */
 void zen::ogRaderMgr::start()
 {
-	if (mStatus == -1) {
-		_04  = 0;
-		_45A = 64;
-		_0C  = 320.0f;
-		_10  = 220.0f;
-		_1C  = 155;
-		_20  = 264;
-		_14  = 320 - _1C / 2;
-		_18  = 220 - _20 / 2;
-		startSub();
+	if (mStatus != STATE_NULL) {
+		return;
 	}
-	// UNUSED FUNCTION
+
+	_04  = 0;
+	_45A = 64;
+	_0C  = 320.0f;
+	_10  = 220.0f;
+	_1C  = 155;
+	_20  = 264;
+	_14  = 320 - _1C / 2;
+	_18  = 220 - _20 / 2;
+	startSub();
 }
 
 /**
@@ -447,26 +445,31 @@ void zen::ogRaderMgr::start()
  */
 void zen::ogRaderMgr::startMenu(P2DPane* pane)
 {
-	if (mStatus == -1 && (!playerState || playerState->hasRadar())) {
-		_04  = 1;
-		_00  = false;
-		_01  = false;
-		_02  = false;
-		_45A = 200;
-
-		int posH = pane->getPosH();
-		int posV = pane->getPosV();
-		int w    = pane->getWidth();
-		int h    = pane->getHeight();
-		_0C      = posH + w / 2;
-		_10      = posV + h / 2;
-		_1C      = w;
-		_20      = h;
-		_14      = posH;
-		_18      = posV;
-		startSub();
-		setRaderScale(2.0f);
+	if (mStatus != STATE_NULL) {
+		return;
 	}
+	if (playerState && !playerState->hasRadar()) {
+		return;
+	}
+
+	_04  = 1;
+	_00  = false;
+	_01  = false;
+	_02  = false;
+	_45A = 200;
+
+	int posH = pane->getPosH();
+	int posV = pane->getPosV();
+	int w    = pane->getWidth();
+	int h    = pane->getHeight();
+	_0C      = posH + w / 2;
+	_10      = posV + h / 2;
+	_1C      = w;
+	_20      = h;
+	_14      = posH;
+	_18      = posV;
+	startSub();
+	setRaderScale(2.0f);
 
 	STACK_PAD_VAR(2);
 }
@@ -499,25 +502,25 @@ void zen::ogRaderMgr::updateGame(Controller* input)
 {
 	if (input->keyClick(KBBTN_DPAD_UP)) {
 		switch (mStatus) {
-		case 0:
+		case STATE_0:
 		{
 			_42C    = 2.0f;
 			mStatus = STATE_1;
 			break;
 		}
-		case 1:
+		case STATE_1:
 		{
 			_42C    = 4.0f;
 			mStatus = STATE_2;
 			break;
 		}
-		case 2:
+		case STATE_2:
 		{
 			_42C    = 8.0f;
 			mStatus = STATE_3;
 			break;
 		}
-		case 3:
+		case STATE_3:
 		{
 			mStatus = STATE_5;
 			_50->startFadeOut(0.2f);
@@ -553,7 +556,7 @@ void zen::ogRaderMgr::AreaScroll(f32* p1, f32* p2, f32 p3, f32 p4)
 	f32 x1 = a + x - c;
 	f32 z1 = b + z - d;
 	PRINT("scroll(%7.2f, %7.2f)  orima(%7.2f, %7.2f)  area(%7.2f, %7.2f)\n", p3, p4, _430.x, _430.z, _24, _28);
-	f32 dist = std::sqrtf(x1 * x1 + z1 * z1);
+	f32 dist = std::sqrtf(SQUARE(x1) + SQUARE(z1));
 	if (dist < _2C) {
 		*p1 = a;
 		*p2 = b;
@@ -688,7 +691,7 @@ void zen::ogRaderMgr::updateMenu(Controller* input)
 
 #if defined(VERSION_PIKIDEMO) || defined(VERSION_GPIJ01)
 #else
-	if (mStatus == -1) {
+	if (mStatus == STATE_NULL) {
 		return;
 	}
 #endif
@@ -932,7 +935,7 @@ zen::ogRaderMgr::RaderStatus zen::ogRaderMgr::update(Controller* input)
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 000098
+ * @note UNUSED Size: 000098 (Matching by size)
  */
 void zen::ogRaderMgr::RotatePos(f32* x, f32* y)
 {
@@ -948,19 +951,77 @@ void zen::ogRaderMgr::RotatePos(f32* x, f32* y)
 
 	*x = pos.x;
 	*y = pos.y;
-
-	// UNUSED FUNCTION
 }
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 00045C
+ * @note UNUSED Size: 00045C (Nonmatching)
  */
-void zen::ogRaderMgr::DrawCircle(u8, u8, u8, u8, f32)
+void zen::ogRaderMgr::DrawCircle(u8 r, u8 g, u8 b, u8 a, f32 radius)
 {
-	// No
+	int i;
+	u32 colour = (r << 24) | (g << 16) | (b << 8) | (a << 0);
 
-	// UNUSED FUNCTION
+	immut int nSides = 32;
+
+	s16 xVerts[64];
+	s16 yVerts[64];
+
+	_30 += gsys->getFrameTime();
+	if (_30 > 2.0f) {
+		_30 = 0.0f;
+	}
+
+	// Similar calculations to `zen::ogRaderMgr::ogCalcDispXZ`.
+	f32 dispX = (_24 + 2800.0f) * 310.0f * 10.0f / 5400.0f;
+	f32 dispY = (_28 + 4300.0f) * 528.0f * 10.0f / 9200.0f;
+	f32 x     = dispX;
+	-_34 - _43C.x;
+	f32 y = dispY;
+	-_38 - _43C.z;
+	RotatePos(&x, &y);
+
+	f32 screenXOffset = x * _428 / 10.0f + _0C;
+	f32 screenYOffset = y * _428 / 10.0f + _10;
+	f32 screenRadius  = _428 / 10.0f * _2C * radius * _30 / 2.0f;
+
+	for (i = 0; i < nSides; ++i) {
+		f32 theta = i * TAU / nSides;
+		xVerts[i] = cosf(theta) * screenRadius + screenXOffset;
+		yVerts[i] = sinf(theta) * screenRadius + screenYOffset;
+	}
+
+#if defined(WIN32)
+	// THAT'S RIGHT!  THIS FUNCTION DOES NOTHING!  NOTHING AT ALL!
+	// ...okay well it probably did SOMETHING, because this function
+	// is WAY under-size for matching, but it probably directly used
+	// Dolphin GX function calls, and those don't exist in the DLL.
+#else
+	// So then this is problematic.  I have to decompile DOL-exclusive
+	// code when the function never existed in the DOL?  The following
+	// approximation is based on what `Graphics::drawLine` does to set
+	// up GX and by my best guess at what they did to iterate over the
+	// vertex position arrays that they just filled with data.
+	GXSetNumTexGens(0);
+	GXSetNumTevStages(1);
+	GXSetTevOrder(GX_TEVSTAGE0, GX_TEXCOORD_NULL, GX_TEXMAP_NULL, GX_COLOR0A0);
+	GXSetTevOp(GX_TEVSTAGE0, GX_PASSCLR);
+
+	GXClearVtxDesc();
+	GXSetVtxDesc(GX_VA_POS, GX_DIRECT);
+	GXSetVtxDesc(GX_VA_CLR0, GX_DIRECT);
+	GXSetVtxAttrFmt(GX_VTXFMT0, GX_VA_POS, GX_POS_XYZ, GX_F32, 0);
+	GXSetVtxAttrFmt(GX_VTXFMT0, GX_VA_CLR0, GX_CLR_RGBA, GX_RGBA8, 0);
+
+	GXBegin(GX_LINES, GX_VTXFMT0, nSides * 2);
+	for (i = 0; i < nSides; ++i) {
+		GXPosition3f32(xVerts[i], yVerts[i], 0.0f);
+		GXColor1u32(colour);
+		GXPosition3f32(xVerts[(i + 1) % nSides], yVerts[(i + 1) % nSides], 0.0f);
+		GXColor1u32(colour);
+	}
+	GXEnd();
+#endif
 }
 
 /**

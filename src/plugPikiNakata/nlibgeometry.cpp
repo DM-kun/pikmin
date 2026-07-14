@@ -1535,11 +1535,10 @@ void NVector::input(immut NVector& other)
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 000058
+ * @note UNUSED Size: 000058 (Matching by size)
  */
 void NVector::println() immut
 {
-	// UNUSED FUNCTION
 	for (int i = 0; i < mSize; i++) {
 		PRINT_NAKATA("e[%d]:%f\n", i, mValues[i]);
 	}
@@ -1689,7 +1688,7 @@ void NVector3f::outputQuat(f32 theta, Quat& q) immut
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 0000E0
+ * @note UNUSED Size: 0000E0 (Matching by size)
  */
 f32 NVector3f::calcAngle(immut NVector3f& other) immut
 {
@@ -1701,18 +1700,17 @@ f32 NVector3f::calcAngle(immut NVector3f& other) immut
 		proj = -1.0f;
 	}
 
-	return NMathF::roundAngle(proj); // idk which function this is
-	                                 // UNUSED FUNCTION
+	return NMathF::acos(proj);
 }
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 000098
+ * @note UNUSED Size: 000098 (Nonmatching by size)
  */
 f32 NVector3f::calcLargerAngle(immut NVector3f& other) immut
 {
-	return TAU - calcAngle(other);
-	// UNUSED FUNCTION
+	f32 tau = PI * 2; // The DLL does something silly here.
+	return tau - calcAngle(other);
 }
 
 /**

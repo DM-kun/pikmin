@@ -23,7 +23,7 @@ static u32 JV_CURRENT_ARCS = 0; // TODO: type unknown, init unclear
  */
 void JV_InitHeader(immut char*)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -98,7 +98,7 @@ u32 JV_GetArchiveHandle(immut char* name)
  */
 void JV_GetLogicalHandleS(immut char*, immut char*)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -107,11 +107,9 @@ void JV_GetLogicalHandleS(immut char*, immut char*)
  */
 void JV_GetLogicalHandle(immut char*)
 {
-	// idk what this is or where it's meant to be, but it's static, size 0x3C, and in a function.
-	static struct {
-		u8 pad[0x3C];
-	} finfo;
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
+	// idk where this is meant to be, but it's static and in a function.
+	static DVDFileInfo finfo;
 }
 
 /**
@@ -120,7 +118,7 @@ void JV_GetLogicalHandle(immut char*)
  */
 void JV_GetHandle(u32)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -171,11 +169,10 @@ u32 JV_CheckSize(u32 handle)
 
 /**
  * @TODO: Documentation
- * @note UNUSED Size: 000004
+ * @note UNUSED Size: 000004 (Matching by size)
  */
 void __JV_Callback(u32)
 {
-	// UNUSED FUNCTION
 }
 
 /**
@@ -246,5 +243,5 @@ u32 JV_LoadFile_Async2(u32 handle, u8* dst, u32 p3, u32 length, void (*callback)
  */
 void JV_GetMemoryFile(u32)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }

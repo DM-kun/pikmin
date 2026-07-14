@@ -4,7 +4,8 @@
 #include "Stream.h"
 
 // Lightweight command stream parser built on top of a Stream.
-struct CmdStream {
+class CmdStream {
+public:
 	CmdStream();
 	CmdStream(Stream* stream);
 	immut char* skipLine();

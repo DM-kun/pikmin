@@ -17,6 +17,7 @@
 #include "RadarInfo.h"
 #include "SearchSystem.h"
 #include "SoundMgr.h"
+#include "bugprint.h"
 #include "sysMath.h"
 #include "sysNew.h"
 #include "timers.h"
@@ -683,10 +684,10 @@ void Creature::update()
 #if 0
 	if (mObjType == OBJTYPE_Teki) {
 		if (isNan(mFaceDirection)) {
-			PRINT_GLOBAL("nan detected !");
+			BUGPRINT("nan detected !");
 			dump();
 			if (!wasNanBeforeUpdateAI) {
-				PRINT_GLOBAL("after update AI");
+				BUGPRINT("after update AI");
 			}
 		}
 	}
@@ -1265,7 +1266,7 @@ void Creature::moveVelocity()
 		int slipCode = MapCode::getSlipCode(mGroundTriangle);
 		if (slipCode == 0) {
 			if (speed < 0.1f) {
-				Vector3f tmp1(0.0f, -(AIConstant::_instance->mConstants.mGravity() * gsys->getFrameTime()), 0.0f);
+				Vector3f tmp1(0.0f, -(AICONST.mGravity() * gsys->getFrameTime()), 0.0f);
 				tmp1   = tmp1 - tmp1.DP(normal) * normal;
 				vec    = -tmp1;
 				vec    = vec * 1.0f;
@@ -1273,22 +1274,22 @@ void Creature::moveVelocity()
 			}
 		} else {
 
-			Vector3f tmp1(0.0f, -(AIConstant::_instance->mConstants.mGravity() * gsys->getFrameTime()), 0.0f);
+			Vector3f tmp1(0.0f, -(AICONST.mGravity() * gsys->getFrameTime()), 0.0f);
 			tmp1 = tmp1 - tmp1.DP(normal) * normal;
 			tmp1.normalise();
 
 			f32 factor;
 			if (slipCode == 2) {
-				factor = AIConstant::_instance->mConstants.mStrongSlipFactor();
+				factor = AICONST.mStrongSlipFactor();
 			} else {
-				factor = AIConstant::_instance->mConstants.mWeakSlipFactor();
+				factor = AICONST.mWeakSlipFactor();
 			}
 
 			if (mObjType == OBJTYPE_Navi) {
 				PRINT("navi slip!\n");
 			}
 
-			vec    = tmp1 * AIConstant::_instance->mConstants.mGravity() * gsys->getFrameTime() * factor;
+			vec    = tmp1 * AICONST.mGravity() * gsys->getFrameTime() * factor;
 			unused = true;
 		}
 	}

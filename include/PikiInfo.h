@@ -3,7 +3,8 @@
 
 #include "types.h"
 
-struct PikiInfo {
+class PikiInfo {
+public:
 	PikiInfo();
 
 	void addFormationPiki();

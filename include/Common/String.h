@@ -4,14 +4,15 @@
 #include "types.h"
 #include <stdio.h>
 
-struct Stream;
+class Stream;
 
 /**
  * @brief TODO
  *
  * @note Size: 0x8.
  */
-struct String {
+class String {
+public:
 	String() { init(64); }
 	String(int length) { init(length); }
 	String(char* str, int length) { init(str, length); }

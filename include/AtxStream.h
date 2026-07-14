@@ -4,6 +4,9 @@
 #include "Stream.h"
 #include "types.h"
 
+// TODO: We shouldn't be defining this.  It comes from <WinDef.h> of the Win32 API.
+typedef u32 HWND;
+
 // Misc. definitions
 #define ATX_SERVICE_NAME_SIZE (4)     // 3 chars + null terminator
 #define ATX_SERVICE_FILE      ("fil") // For requesting file operations
@@ -29,15 +32,16 @@
 #define ATX_FILE_CMD_SET_POS (102) // Set file position
 #define ATX_FILE_CMD_CLOSE   (103) // Close file
 
-struct AtxStream;
-struct BaseApp;
+class AtxStream;
+class BaseApp;
 
 /**
  * @brief Websocket wrapper for network communication.
  * @details Windows-only code, used by AtxStream for TCP communication.
  * @todo Decompile this struct and its methods.
  */
-struct WSocket {
+class WSocket {
+public:
 	/// @brief Initializes the Winsock library. (Called once at program start.)
 	static void init();
 
@@ -62,7 +66,8 @@ struct WSocket {
  * @brief TCP communication stream.
  * @details Used by AtxStream for network communication.
  */
-struct TcpStream : public Stream {
+class TcpStream : public Stream {
+public:
 #ifdef WIN32
 	TcpStream();
 	TcpStream(WSocket*);
@@ -88,7 +93,8 @@ struct TcpStream : public Stream {
  * @brief Abstract base class for ATX communication routers.
  * @details Used by AtxStream to route communication over different transports.
  */
-struct AtxRouter {
+class AtxRouter {
+public:
 	virtual bool openRoute(AtxStream*, int) = 0; // _00
 	virtual void closeRoute(AtxStream*)     = 0; // _04
 	virtual void lock() { }                      // _08
@@ -106,7 +112,8 @@ struct AtxRouter {
  *
  * @note Size: 0x10.
  */
-struct AtxStream : public Stream {
+class AtxStream : public Stream {
+public:
 	AtxStream() { init(); }
 
 	virtual void read(void* buffer, int size);        // _3C
@@ -129,7 +136,8 @@ struct AtxStream : public Stream {
  * @brief ATX command stream for handling incoming commands.
  * @details Used by PlugPikiApp to process commands from a connected ATX server.
  */
-struct AtxCommandStream : public AtxStream {
+class AtxCommandStream : public AtxStream {
+public:
 	AtxCommandStream(BaseApp* app)
 	    : mParentApp(app)
 	{
@@ -145,7 +153,8 @@ struct AtxCommandStream : public AtxStream {
 /**
  * @brief Wrapper for handling file operations over the ATX protocol.
  */
-struct AtxFileStream : public RandomAccessStream {
+class AtxFileStream : public RandomAccessStream {
+public:
 	virtual void read(void*, int);        // _3C
 	virtual void write(immut void*, int); // _40
 	virtual int getPending();             // _44 (weak)
@@ -168,7 +177,8 @@ struct AtxFileStream : public RandomAccessStream {
 /**
  * @brief Direct router using TCP for AtxStream.
  */
-struct AtxDirectRouter : public AtxRouter {
+class AtxDirectRouter : public AtxRouter {
+public:
 	virtual bool openRoute(AtxStream*, int); // _00
 	virtual void closeRoute(AtxStream*);     // _04
 	virtual void lock();                     // _08

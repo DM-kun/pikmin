@@ -301,7 +301,7 @@ bool PlantMgr::usePlantType(int type)
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 0000F4
+ * @note UNUSED Size: 0000F4 (Matching by size)
  */
 void PlantMgr::addUseList(int plantType)
 {
@@ -310,20 +310,18 @@ void PlantMgr::addUseList(int plantType)
 		node->mPlantType = plantType;
 		mRootUseNode.add(node);
 	}
-	// UNUSED FUNCTION
 }
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 000150
+ * @note UNUSED Size: 000150 (Matching by size)
  */
 Creature* PlantMgr::birth()
 {
 	CreatureNode* cnode = new CreatureNode();
 	cnode->mCreature    = new Plant();
 	mRootNode.add(cnode);
-	return static_cast<Plant*>(cnode->mCreature);
-	// UNUSED FUNCTION
+	return cnode->mCreature;
 }
 
 /**

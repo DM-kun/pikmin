@@ -3,7 +3,8 @@
 
 #include "types.h"
 
-struct MemHead {
+class MemHead {
+public:
 	u32 mTagAndSize; // _00, tag in high byte; size in low 24 bits
 	MemHead* mNext;  // _04, next node in list
 	MemHead* mPrev;  // _08, previous node in list
@@ -13,7 +14,8 @@ struct MemHead {
 /**
  * @brief TODO
  */
-struct AyuCache {
+class AyuCache {
+public:
 	AyuCache(u32);
 
 	void init(u32 bufferStart, u32 bufferEnd);
@@ -42,7 +44,8 @@ struct AyuCache {
 /**
  * @brief TODO
  */
-struct AyuStack {
+class AyuStack {
+public:
 	AyuStack() { mIsActive = false; }
 
 	void reset(int resetFlags);
@@ -83,7 +86,8 @@ struct AyuStack {
  *
  * @note Size: 0x28.
  */
-struct AyuHeap : public AyuStack {
+class AyuHeap : public AyuStack {
+public:
 	AyuHeap() { }
 
 	void init(immut char* name, int allocFlags, void* stackBase, int stackSizeBytes);

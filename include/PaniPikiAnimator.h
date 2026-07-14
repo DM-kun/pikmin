@@ -104,7 +104,8 @@ enum PikiNaviAnim {
 /**
  * @brief TODO
  */
-struct PaniPikiAnimator : public PaniAnimator {
+class PaniPikiAnimator : public PaniAnimator {
+public:
 	PaniPikiAnimator();
 
 	immut char* getCurrentMotionName()

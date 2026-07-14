@@ -8,7 +8,8 @@
  *
  * @note Dev spelling.
  */
-struct SlotChangeListner {
+class SlotChangeListner {
+public:
 	virtual void inform(int) = 0; // _08
 
 	// _00 = VTBL

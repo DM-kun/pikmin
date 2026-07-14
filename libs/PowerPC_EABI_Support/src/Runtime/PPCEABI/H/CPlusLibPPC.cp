@@ -3,50 +3,44 @@
 
 extern "C" {
 
-/*
- * --INFO--
- * Address:	........
- * Size:	000074
+/**
+ * @todo Documentation
+ * @note UNUSED Size: 000074
  */
 void __dc_arr(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
-/*
- * --INFO--
- * Address:	........
- * Size:	00007C
+/**
+ * @todo Documentation
+ * @note UNUSED Size: 00007C
  */
 void __del_arr(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
-/*
- * --INFO--
- * Address:	........
- * Size:	000088
+/**
+ * @todo Documentation
+ * @note UNUSED Size: 000088
  */
 void __new_arr(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
-/*
- * --INFO--
- * Address:	........
- * Size:	000078
+/**
+ * @todo Documentation
+ * @note UNUSED Size: 000078
  */
 void __init_arr(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
-/*
- * --INFO--
- * Address:	802149C4
- * Size:	000030
+/**
+ * @todo Documentation
  */
 void* __copy(char* dest, char* src, size_t size)
 {
@@ -55,11 +49,8 @@ void* __copy(char* dest, char* src, size_t size)
 	if (dest && size) {
 		p = dest;
 		do {
-			*p = *src;
-			++p;
-			++src;
-			--size;
-		} while (size);
+			*p++ = *src++;
+		} while (--size);
 	}
 
 	return (dest);

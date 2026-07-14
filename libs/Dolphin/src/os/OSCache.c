@@ -8,7 +8,7 @@
  */
 void DCFlashInvalidate(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -35,7 +35,7 @@ ASM void DCEnable(void)
  */
 void DCDisable(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -44,7 +44,7 @@ void DCDisable(void)
  */
 void DCFreeze(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -53,7 +53,7 @@ void DCFreeze(void)
  */
 void DCUnfreeze(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -62,7 +62,7 @@ void DCUnfreeze(void)
  */
 void DCTouchLoad(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -71,7 +71,7 @@ void DCTouchLoad(void)
  */
 void DCBlockZero(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -80,7 +80,7 @@ void DCBlockZero(void)
  */
 void DCBlockStore(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -89,7 +89,7 @@ void DCBlockStore(void)
  */
 void DCBlockFlush(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -98,7 +98,7 @@ void DCBlockFlush(void)
  */
 void DCBlockInvalidate(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -260,7 +260,7 @@ _loop:
  */
 void DCTouchRange(register void* addr, register u32 nBytes)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -329,7 +329,7 @@ ASM void ICEnable(void)
  */
 void ICDisable(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -338,7 +338,7 @@ void ICDisable(void)
  */
 void ICFreeze(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -347,7 +347,7 @@ void ICFreeze(void)
  */
 void ICUnfreeze(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -356,7 +356,7 @@ void ICUnfreeze(void)
  */
 void ICBlockInvalidate(void*)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -365,7 +365,7 @@ void ICBlockInvalidate(void*)
  */
 void ICSync(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -374,7 +374,7 @@ void ICSync(void)
  */
 void __LCEnable(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -383,17 +383,16 @@ void __LCEnable(void)
  */
 void LCEnable(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
  * @note Dolphin Emulator has a speedhack in its JITs to recognize the instructions in this
  * loop in order to batch data cache operations.  See `Jit64`/`JitArm64::dcbx` for details.
- * @note UNUSED Size: 000028
+ * @note UNUSED Size: 000028 (Matching by size)
  */
 ASM void LCDisable(void)
 {
-	// UNUSED FUNCTION
 #ifdef __MWERKS__ // clang-format off
 	nofralloc
 	lis     r3, LC_BASE @ha
@@ -416,7 +415,7 @@ ASM void LCDisable(void)
  */
 void LCAllocOneTag(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -425,7 +424,7 @@ void LCAllocOneTag(void)
  */
 void LCAllocTags(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -434,7 +433,7 @@ void LCAllocTags(void)
  */
 void LCLoadBlocks(void* destTag, void* srcAddr, u32 numBlocks)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -443,7 +442,7 @@ void LCLoadBlocks(void* destTag, void* srcAddr, u32 numBlocks)
  */
 void LCStoreBlocks(register void* destAddr, register void* srcTag, register u32 numBlocks)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -452,7 +451,7 @@ void LCStoreBlocks(register void* destAddr, register void* srcTag, register u32 
  */
 void LCAlloc(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -461,7 +460,7 @@ void LCAlloc(void)
  */
 void LCAllocNoInvalidate(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -470,7 +469,7 @@ void LCAllocNoInvalidate(void)
  */
 u32 LCLoadData(void* destAddr, void* srcAddr, u32 nBytes)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -479,7 +478,7 @@ u32 LCLoadData(void* destAddr, void* srcAddr, u32 nBytes)
  */
 u32 LCStoreData(void* destAddr, void* srcAddr, u32 nBytes)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -488,7 +487,7 @@ u32 LCStoreData(void* destAddr, void* srcAddr, u32 nBytes)
  */
 u32 LCQueueLength(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -497,7 +496,7 @@ u32 LCQueueLength(void)
  */
 void LCQueueWait(register u32 len)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -506,12 +505,12 @@ void LCQueueWait(register u32 len)
  */
 void LCFlushQueue(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
  * @TODO: Documentation
- * @note UNUSED Size: 00004C
+ * @note UNUSED Size: 00004C (Matching by size)
  */
 void L2Init(void)
 {
@@ -528,29 +527,26 @@ void L2Init(void)
 	L2GlobalInvalidate();
 
 	PPCMtmsr(oldMSR);
-	// UNUSED FUNCTION
 }
 
 /**
  * @TODO: Documentation
- * @note UNUSED Size: 00002C
+ * @note UNUSED Size: 00002C (Matching by size)
  */
 void L2Enable(void)
 {
 	PPCMtl2cr((PPCMfl2cr() | L2CR_L2E) & ~L2CR_L2I);
-	// UNUSED FUNCTION
 }
 
 /**
  * @TODO: Documentation
- * @note UNUSED Size: 000030
+ * @note UNUSED Size: 000030 (Matching by size)
  */
 void L2Disable(void)
 {
 	__mwerks_sync();
 	PPCMtl2cr(PPCMfl2cr() & ~L2CR_L2E);
 	__mwerks_sync();
-	// UNUSED FUNCTION
 }
 
 /**
@@ -578,7 +574,7 @@ void L2GlobalInvalidate(void)
  */
 void L2SetDataOnly(int)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -587,7 +583,7 @@ void L2SetDataOnly(int)
  */
 void L2SetWriteThrough(int)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**

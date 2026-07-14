@@ -4,7 +4,7 @@
 #include "TekiStrategy.h"
 #include "types.h"
 
-struct Teki;
+class Teki;
 
 #define TAI_NO_TRANSIT     (-1)
 #define TAI_RETURN_TRANSIT (-2)
@@ -12,7 +12,8 @@ struct Teki;
 /**
  * @brief TODO
  */
-struct TaiAction {
+class TaiAction {
+public:
 	inline TaiAction(int nextState)
 	    : mNextState(nextState)
 	{
@@ -162,7 +163,8 @@ struct TaiDependenceAction : public TaiAction {
 /**
  * @brief TODO
  */
-struct TaiState {
+class TaiState {
+public:
 	TaiState(int count);
 
 	virtual void start(Teki& teki);                      // _08

@@ -161,13 +161,12 @@ static void cbForStateError(u32 intType)
 
 /**
  * @TODO: Documentation
- * @note UNUSED Size: 00002C
+ * @note UNUSED Size: 00002C (Matching by size)
  */
 static void stateError(u32 error)
 {
 	__DVDStoreErrorCode(error);
 	DVDLowStopMotor(cbForStateError);
-	// UNUSED FUNCTION
 }
 
 /**
@@ -226,7 +225,7 @@ static u32 CategorizeError(u32 error)
 
 /**
  * @TODO: Documentation
- * @note UNUSED Size: 00009C
+ * @note UNUSED Size: 00009C (Matching by size)
  */
 static BOOL CheckCancel(u32 resume)
 {
@@ -248,7 +247,6 @@ static BOOL CheckCancel(u32 resume)
 		return TRUE;
 	}
 	return FALSE;
-	// UNUSED FUNCTION
 }
 
 /**
@@ -1024,7 +1022,7 @@ BOOL DVDReadAbsAsyncPrio(DVDCommandBlock* block, void* addr, s32 length, s32 off
  */
 void DVDSeekAbsAsyncPrio(DVDCommandBlock* block, void* addr, DVDCBCallback callback, s32 prio)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -1079,7 +1077,7 @@ BOOL DVDPrepareStreamAbsAsync(DVDCommandBlock* block, u32 length, u32 offset, DV
 
 /**
  * @TODO: Documentation
- * @note UNUSED Size: 0000BC
+ * @note UNUSED Size: 0000BC (Matching by size)
  */
 BOOL DVDCancelStreamAsync(DVDCommandBlock* block, DVDCBCallback callback)
 {
@@ -1088,7 +1086,6 @@ BOOL DVDCancelStreamAsync(DVDCommandBlock* block, DVDCBCallback callback)
 	block->callback = callback;
 	idle            = issueCommand(1, block);
 	return idle;
-	// UNUSED FUNCTION
 }
 
 /**
@@ -1139,7 +1136,7 @@ static void cbForCancelStreamSync(s32 result, DVDCommandBlock* block)
  */
 static BOOL DVDStopStreamAtEndAsync(DVDCommandBlock* block, DVDCBCallback callback)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -1148,7 +1145,7 @@ static BOOL DVDStopStreamAtEndAsync(DVDCommandBlock* block, DVDCBCallback callba
  */
 void DVDStopStreamAtEnd(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -1157,7 +1154,7 @@ void DVDStopStreamAtEnd(void)
  */
 static void cbForStopStreamAtEndSync(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -1166,7 +1163,7 @@ static void cbForStopStreamAtEndSync(void)
  */
 void DVDGetStreamErrorStatusAsync(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -1175,7 +1172,7 @@ void DVDGetStreamErrorStatusAsync(void)
  */
 void DVDGetStreamErrorStatus(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -1184,7 +1181,7 @@ void DVDGetStreamErrorStatus(void)
  */
 void cbForGetStreamErrorStatusSync(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -1193,7 +1190,7 @@ void cbForGetStreamErrorStatusSync(void)
  */
 void DVDGetStreamPlayAddrAsync(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -1202,7 +1199,7 @@ void DVDGetStreamPlayAddrAsync(void)
  */
 void DVDGetStreamPlayAddr(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -1211,7 +1208,7 @@ void DVDGetStreamPlayAddr(void)
  */
 static void cbForGetStreamPlayAddrSync(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -1220,7 +1217,7 @@ static void cbForGetStreamPlayAddrSync(void)
  */
 void DVDGetStreamStartAddrAsync(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -1229,7 +1226,7 @@ void DVDGetStreamStartAddrAsync(void)
  */
 void DVDGetStreamStartAddr(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -1238,7 +1235,7 @@ void DVDGetStreamStartAddr(void)
  */
 static void cbForGetStreamStartAddrSync(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -1247,7 +1244,7 @@ static void cbForGetStreamStartAddrSync(void)
  */
 void DVDGetStreamLengthAsync(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -1256,7 +1253,7 @@ void DVDGetStreamLengthAsync(void)
  */
 void DVDGetStreamLength(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -1265,7 +1262,7 @@ void DVDGetStreamLength(void)
  */
 static void cbForGetStreamLengthSync(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -1274,7 +1271,7 @@ static void cbForGetStreamLengthSync(void)
  */
 void __DVDAudioBufferConfig(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -1283,7 +1280,7 @@ void __DVDAudioBufferConfig(void)
  */
 void DVDChangeDiskAsyncForBS(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -1292,7 +1289,7 @@ void DVDChangeDiskAsyncForBS(void)
  */
 BOOL DVDChangeDiskAsync(DVDCommandBlock*, DVDDiskID*, DVDCBCallback)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -1301,7 +1298,7 @@ BOOL DVDChangeDiskAsync(DVDCommandBlock*, DVDDiskID*, DVDCBCallback)
  */
 s32 DVDChangeDisk(DVDCommandBlock*, DVDDiskID*)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -1310,7 +1307,7 @@ s32 DVDChangeDisk(DVDCommandBlock*, DVDDiskID*)
  */
 static void cbForChangeDiskSync(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -1319,7 +1316,7 @@ static void cbForChangeDiskSync(void)
  */
 BOOL DVDInquiryAsync(DVDCommandBlock* block, DVDDriveInfo* info, DVDCBCallback callback)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -1328,7 +1325,7 @@ BOOL DVDInquiryAsync(DVDCommandBlock* block, DVDDriveInfo* info, DVDCBCallback c
  */
 void DVDInquiry(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -1337,7 +1334,7 @@ void DVDInquiry(void)
  */
 static void cbForInquirySync(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -1358,12 +1355,12 @@ void DVDReset()
  */
 void DVDResetRequired(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
  * @TODO: Documentation
- * @note UNUSED Size: 00004C
+ * @note UNUSED Size: 00004C (Matching by size)
  */
 s32 DVDGetCommandBlockStatus(const DVDCommandBlock* block)
 {
@@ -1376,7 +1373,6 @@ s32 DVDGetCommandBlockStatus(const DVDCommandBlock* block)
 	}
 	OSRestoreInterrupts(interrupts);
 	return result;
-	// UNUSED FUNCTION
 }
 
 /**
@@ -1604,7 +1600,7 @@ static void cbForCancelSync(s32 result, DVDCommandBlock* block)
 
 /**
  * @TODO: Documentation
- * @note UNUSED Size: 0000EC
+ * @note UNUSED Size: 0000EC (Matching by size)
  */
 BOOL DVDCancelAllAsync(DVDCBCallback callback)
 {
@@ -1630,7 +1626,6 @@ BOOL DVDCancelAllAsync(DVDCBCallback callback)
 	DVDResume();
 	OSRestoreInterrupts(enabled);
 	return retVal;
-	// UNUSED FUNCTION
 }
 
 /**
@@ -1639,7 +1634,7 @@ BOOL DVDCancelAllAsync(DVDCBCallback callback)
  */
 s32 DVDCancelAll()
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -1648,7 +1643,7 @@ s32 DVDCancelAll()
  */
 void cbForCancelAllSync(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**

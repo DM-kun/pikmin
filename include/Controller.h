@@ -38,8 +38,8 @@ enum KeyboardButtons {
 /**
  * @brief TODO
  */
-struct Controller : public Node {
-
+class Controller : public Node {
+public:
 	// I really wanted to make `int playerNum = 1` since it (almost) always is, but guess what?  SOMEHOW, THAT BREAKS MATCHING!  Yeah,
 	// a DEFAULT ARGUMENT tips the inlining score enough to stop the `Node` base class constructor from inlining.  This compiler, man.
 	Controller(int playerNum)
@@ -91,7 +91,8 @@ struct Controller : public Node {
 /**
  * @brief TODO
  */
-struct ControllerMgr {
+class ControllerMgr {
+public:
 	virtual bool keyDown(int); // _08
 
 	void update();

@@ -13,14 +13,14 @@
 
 #define ADD_ACTOR_PIKMIN_TYPE(flags, color) (flags) |= 1 << ((color) + 12)
 
-struct AgeServer;
-struct CmdStream;
-struct Graphics;
-struct Matrix4f;
-struct Vector3f;
-struct CinematicPlayer;
-struct CineShapeObject;
-struct ActorInstance;
+class AgeServer;
+class CmdStream;
+class Graphics;
+class Matrix4f;
+class Vector3f;
+class CinematicPlayer;
+class CineShapeObject;
+class ActorInstance;
 
 /**
  * @brief Enum for cinematic player flags.
@@ -95,7 +95,8 @@ enum CinPlayBackMode {
  *
  * @note Size: 0x30.
  */
-struct SceneData : public CoreNode {
+class SceneData : public CoreNode {
+public:
 	SceneData()
 	    : CoreNode("")
 	{
@@ -175,7 +176,8 @@ enum CineActorFlags {
  *
  * @note Size: 0x1A0.
  */
-struct ActorInstance : public CoreNode {
+class ActorInstance : public CoreNode {
+public:
 	ActorInstance()
 	    : CoreNode("")
 	{
@@ -246,8 +248,8 @@ struct ActorInstance : public CoreNode {
  *
  * @note Size: 0x1DC.
  */
-struct SceneCut : public CoreNode {
-
+class SceneCut : public CoreNode {
+public:
 	/// Default constructor.
 	SceneCut()
 	    : CoreNode("")
@@ -296,8 +298,8 @@ struct SceneCut : public CoreNode {
  *
  * @note Size: 0x34.
  */
-struct CineShapeObject : public CoreNode {
-
+class CineShapeObject : public CoreNode {
+public:
 	/// Default constructor.
 	CineShapeObject()
 	    : CoreNode("")
@@ -329,8 +331,8 @@ struct CineShapeObject : public CoreNode {
  *
  * @note Size: 0x2E8.
  */
-struct CinematicPlayer {
-
+class CinematicPlayer {
+public:
 	/// Constructor - initialises given cutscene file.
 	CinematicPlayer(immut char* cinFilePath);
 

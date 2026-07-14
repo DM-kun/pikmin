@@ -2,16 +2,18 @@
 #define _STREAM_H
 
 #include "types.h"
+#include <stdarg.h>
 #include <string.h>
 
-struct String;
+class String;
 
 /**
  * @brief TODO
  *
  * Size: 0x8.
  */
-struct Stream {
+class Stream {
+public:
 	Stream() { }
 
 	// _04 = VTBL
@@ -39,12 +41,14 @@ struct Stream {
 	virtual void flush() { }                    // _54 (weak)
 
 	void print(immut char*, ...);
+	void vPrintf(immut char*, va_list);
 };
 
 /**
  * @brief TODO
  */
-struct RandomAccessStream : public Stream {
+class RandomAccessStream : public Stream {
+public:
 	virtual int getPosition() { return 0; }                          // _58 (weak)
 	virtual int getPending() { return getLength() - getPosition(); } // _44 (weak)
 	virtual void setPosition(int) { }                                // _5C (weak)
@@ -87,7 +91,10 @@ struct RandomAccessStream : public Stream {
 	}
 
 	// unused/inlined:
-	void writeTo(int, void*, int);
+	void writeTo(int, immut void*, int);
+	void readFrom(int, void*, int);
+	void writeIntTo(int, int);
+	int readIntFrom(int);
 
 	// _04     = VTBL
 	// _00-_08 = Stream
@@ -98,7 +105,8 @@ struct RandomAccessStream : public Stream {
  *
  * @note Size: 0x20.
  */
-struct BufferedInputStream : public RandomAccessStream {
+class BufferedInputStream : public RandomAccessStream {
+public:
 	BufferedInputStream()
 	{
 		mBuffer = nullptr;
@@ -128,7 +136,8 @@ struct BufferedInputStream : public RandomAccessStream {
 /**
  * @brief TODO
  */
-struct RamStream : public RandomAccessStream {
+class RamStream : public RandomAccessStream {
+public:
 	inline RamStream(void* buffer, int size)
 	{
 		mBufferAddr = buffer;

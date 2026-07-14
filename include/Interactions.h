@@ -10,25 +10,26 @@
 // any angle below this will flick directly away from enemy
 #define FLICK_BACKWARDS_THRESHOLD (-10.0f)
 
-struct Boss;
-struct Bridge;
-struct Creature;
-struct CollPart;
-struct HinderRock;
-struct ItemCreature;
-struct Navi;
-struct Pellet;
-struct Piki;
-struct Teki;
+class Boss;
+class Bridge;
+class Creature;
+class CollPart;
+class HinderRock;
+class ItemCreature;
+class Navi;
+class Pellet;
+class Piki;
+class Teki;
 
 namespace zen {
-struct particleGenerator;
+class particleGenerator;
 }
 
 /**
  * @brief TODO
  */
-struct Interaction {
+class Interaction {
+public:
 	inline Interaction(Creature* owner)
 	    : mOwner(owner)
 	{
@@ -79,7 +80,8 @@ struct InteractAttack : public Interaction {
 /**
  * @brief TODO
  */
-struct InteractBikkuri : public Interaction {
+class InteractBikkuri : public Interaction {
+public:
 	InteractBikkuri(Creature* owner)
 	    : Interaction(owner)
 	{
@@ -156,7 +158,8 @@ struct InteractBubble : public Interaction {
 /**
  * @brief TODO
  */
-struct InteractBuild : public Interaction {
+class InteractBuild : public Interaction {
+public:
 	InteractBuild(Creature* owner, int stage, f32 rate)
 	    : Interaction(owner)
 	{
@@ -240,7 +243,8 @@ struct InteractFire : public Interaction {
 /**
  * @brief TODO
  */
-struct InteractFlick : public Interaction {
+class InteractFlick : public Interaction {
+public:
 	inline InteractFlick(Creature* owner, f32 knockback, f32 damage, f32 angle)
 	    : Interaction(owner)
 	{
@@ -337,7 +341,8 @@ struct InteractHitEffect : public Interaction {
 /**
  * @brief TODO
  */
-struct InteractKill : public Interaction {
+class InteractKill : public Interaction {
+public:
 	InteractKill(Creature* owner, int p2)
 	    : Interaction(owner)
 	{
@@ -356,7 +361,8 @@ struct InteractKill : public Interaction {
 /**
  * @brief TODO
  */
-struct InteractPress : public Interaction {
+class InteractPress : public Interaction {
+public:
 	inline InteractPress(Creature* owner, f32 damage)
 	    : Interaction(owner)
 	{
@@ -439,7 +445,8 @@ struct InteractSlimeAttack : public Interaction {
 /**
  * @brief TODO
  */
-struct InteractSpore : public Interaction {
+class InteractSpore : public Interaction {
+public:
 	InteractSpore(Creature* owner)
 	    : Interaction(owner)
 	{
@@ -471,7 +478,8 @@ struct InteractSuck : public Interaction {
 /**
  * @brief TODO
  */
-struct InteractSwallow : public Interaction {
+class InteractSwallow : public Interaction {
+public:
 	inline InteractSwallow(Creature* owner, CollPart* mouthPart, int p3)
 	    : Interaction(owner)
 	{

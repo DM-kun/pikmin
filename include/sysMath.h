@@ -4,11 +4,11 @@
 #include "types.h"
 #include <math.h>
 
-struct Vector3f;
-struct BoundBox;
-struct KTri;
-struct KRect;
-struct KSegment;
+class Vector3f;
+class BoundBox;
+class KTri;
+class KRect;
+class KSegment;
 
 #define SQUARE(v) ((v) * (v))
 
@@ -19,7 +19,7 @@ struct KSegment;
 
 static inline f32 quickABS(f32 x)
 {
-	*(u32*)&x &= ~0x80000000;
+	*reinterpret_cast<u32*>(&x) &= ~0x80000000;
 	return x;
 }
 

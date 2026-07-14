@@ -37,8 +37,8 @@ DEFINE_PRINT(nullptr)
  *
  * @note Size: 0xC4.
  */
-struct PositionMenu : public Menu {
-
+class PositionMenu : public Menu {
+public:
 	/**
 	 * @brief Decreases the focused component by set amount and updates its value.
 	 * @param parent Parent debug menu.
@@ -183,8 +183,8 @@ struct PositionMenu : public Menu {
  *
  * @note Size: 0xC0.
  */
-struct ColourMenu : public Menu {
-
+class ColourMenu : public Menu {
+public:
 	/**
 	 * @brief Decreases the focused component by 1 and updates its value. Minimum 0.
 	 * @param parent Parent debug menu.
@@ -332,8 +332,8 @@ struct ColourMenu : public Menu {
  *
  * @note Size: 0xC4.
  */
-struct FogMenu : public Menu {
-
+class FogMenu : public Menu {
+public:
 	/**
 	 * @brief Decreases the focused component by 10.0f and updates its value.
 	 * @param parent Parent debug menu.
@@ -464,8 +464,8 @@ static char* lightMoveNames[LIGHTMOVE_COUNT] = { "global", "attach to navi" };
  *
  * @note Size: 0xCC.
  */
-struct LightMenu : public Menu {
-
+class LightMenu : public Menu {
+public:
 	/**
 	 * @brief Constructs a new light-editing debug menu, for editing light type, movement style, colour.
 	 *

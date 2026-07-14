@@ -78,7 +78,7 @@ static char kanji_convert_table[] ATTRIBUTE_ALIGN(32) = {
  */
 void searchKanjiCode(u16 id)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -444,7 +444,7 @@ void zen::ogScrMessageMgr::setPageInfoSub()
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 000058
+ * @note UNUSED Size: 000058 (Matching by size)
  */
 void zen::ogScrMessageMgr::ReadAllScreen()
 {
@@ -454,7 +454,6 @@ void zen::ogScrMessageMgr::ReadAllScreen()
 		setPageInfoSub();
 	}
 	PRINT("ReadAllScreen() end\n");
-	// UNUSED FUNCTION
 }
 
 /**

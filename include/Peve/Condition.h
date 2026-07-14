@@ -5,12 +5,13 @@
 #include "nlib/System.h"
 #include "types.h"
 
-struct NVector3fIO;
+class NVector3fIO;
 
 /**
  * @brief TODO
  */
-struct PeveCondition {
+class PeveCondition {
+public:
 	PeveCondition();
 
 	virtual bool isMet() = 0; // _08

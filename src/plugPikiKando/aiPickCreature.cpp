@@ -11,7 +11,7 @@ DEFINE_ERROR(7)
  * @todo: Documentation
  * @note UNUSED Size: 0000F4
  */
-DEFINE_PRINT("pickCreature\n")
+DEFINE_PRINT("pickCreature" TERNARY_BUGFIX(, "\n"))
 
 /**
  * @todo: Documentation
@@ -36,11 +36,10 @@ void ActPickCreature::init(Creature* target)
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 000004
+ * @note UNUSED Size: 000004 (Matching by size)
  */
 void ActPickCreature::InitGoto::initialise(Action*, Action*)
 {
-	// UNUSED FUNCTION
 }
 
 /**

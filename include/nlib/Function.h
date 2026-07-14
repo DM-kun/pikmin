@@ -6,7 +6,8 @@
 /**
  * @brief TODO
  */
-struct NFunction {
+class NFunction {
+public:
 	virtual f32 getValue(f32) = 0; // _08
 
 	// _00 = VTBL
@@ -17,10 +18,11 @@ struct NFunction {
  *
  * @note Size: 0xC.
  */
-struct NPolynomialFunction : public NFunction {
+class NPolynomialFunction : public NFunction {
+public:
 	NPolynomialFunction() { }
 	NPolynomialFunction(f32*, int);                  // unused/inlined
-	NPolynomialFunction(f32*, NPolynomialFunction&); // unused/inlined
+	NPolynomialFunction(f32*, immut NPolynomialFunction&); // unused/inlined
 
 	virtual f32 getValue(f32);    // _08
 	virtual void println() immut; // _0C
@@ -30,8 +32,8 @@ struct NPolynomialFunction : public NFunction {
 	void construct(f32*, int);
 
 	// unused/inlined:
-	void construct(f32*, NPolynomialFunction&);
-	void mul2(NPolynomialFunction&, NPolynomialFunction&);
+	void construct(f32*, immut NPolynomialFunction&);
+	void mul2(immut NPolynomialFunction&, immut NPolynomialFunction&);
 	f32 getCoefficient(int);
 	void inputFunction(NPolynomialFunction&);
 	void add(NPolynomialFunction&);
@@ -46,7 +48,8 @@ struct NPolynomialFunction : public NFunction {
  * @brief TODO
  */
 struct NLinearFunction : public NPolynomialFunction {
-	NLinearFunction(f32*); // unused/inlined
+	NLinearFunction() { }
+	NLinearFunction(f32* const); // unused/inlined
 
 	// unused/inlined:
 	void construct(f32*);
@@ -60,12 +63,12 @@ struct NLinearFunction : public NPolynomialFunction {
  * @brief TODO
  */
 struct NClampLinearFunction : public NLinearFunction {
-	NClampLinearFunction(f32*);
+	NClampLinearFunction(f32* const);
 
 	virtual f32 getValue(f32);    // _08
 	virtual void println() immut; // _0C
 
-	void construct(f32*);
+	void construct(f32* const);
 	void makeClampLinearFunction(f32, f32, f32, f32);
 
 	// _00     = VTBL
@@ -96,7 +99,8 @@ struct NVibrationFunction : public NFunction {
 /**
  * @brief TODO
  */
-struct NFunction3D {
+class NFunction3D {
+public:
 	NFunction3D(); // unused/inlined
 
 	void outputPosition(f32, NVector3f&);

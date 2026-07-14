@@ -7,10 +7,10 @@
 #include "GfxObject.h"
 #include "Stream.h"
 
-struct Texture;
-struct TexImg;
-struct Colour;
-struct TexobjInfo;
+class Texture;
+class TexImg;
+class Colour;
+class TexobjInfo;
 struct SystemCache;
 
 /**
@@ -33,7 +33,8 @@ enum TexImgFormat {
 /**
  * @brief TODO
  */
-struct TexAttr : public CoreNode {
+class TexAttr : public CoreNode {
+public:
 	enum TilingType {
 		TILING_REPEAT = 0,
 		TILING_CLAMP  = 1,
@@ -129,7 +130,8 @@ struct BtiHeader {
 /**
  * @brief TODO
  */
-struct TexImg : public CoreNode {
+class TexImg : public CoreNode {
+public:
 	TexImg()
 	    : CoreNode("texImg")
 	{
@@ -168,7 +170,8 @@ struct TexImg : public CoreNode {
  *
  * @note Size: 0x3C.
  */
-struct Texture : public GfxObject {
+class Texture : public GfxObject {
+public:
 	/**
 	 * @brief TODO
 	 */
@@ -222,7 +225,8 @@ struct Texture : public GfxObject {
 /**
  * @brief TODO
  */
-struct TexobjInfo : public GfxobjInfo {
+class TexobjInfo : public GfxobjInfo {
+public:
 	TexobjInfo()
 	    : mTexture(nullptr)
 	{
@@ -237,7 +241,8 @@ struct TexobjInfo : public GfxobjInfo {
 	Texture* mTexture; // _20
 };
 
-struct CacheInfo {
+class CacheInfo {
+public:
 	void insertAfter(CacheInfo* other)
 	{
 		other->mNext = mNext;
@@ -261,7 +266,8 @@ struct CacheInfo {
 /**
  * @note Size: 0x14
  */
-struct TexCacheInfo : public CacheInfo {
+class TexCacheInfo : public CacheInfo {
+public:
 	TexCacheInfo() { initData(); }
 
 	void initData() { _10 = 0; }
@@ -275,7 +281,8 @@ struct TexCacheInfo : public CacheInfo {
  * @brief TODO
  * @note Size: 0x4C
  */
-struct CacheTexture : public Texture {
+class CacheTexture : public Texture {
+public:
 	CacheTexture()
 	{
 		mSystemCache = nullptr;
@@ -296,7 +303,8 @@ struct CacheTexture : public Texture {
 /**
  * @brief TODO
  */
-struct TextureCacher : public TexCacheInfo {
+class TextureCacher : public TexCacheInfo {
+public:
 	TextureCacher(u32 size)
 	{
 		mCache = new AyuCache(size);

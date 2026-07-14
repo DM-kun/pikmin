@@ -56,7 +56,7 @@ void __DVDInitWA(void)
 
 /**
  * @TODO: Documentation
- * @note UNUSED Size: 000094
+ * @note UNUSED Size: 000094 (Matching by size)
  */
 static BOOL ProcessNextCommand(void)
 {
@@ -73,7 +73,6 @@ static BOOL ProcessNextCommand(void)
 	}
 
 	return FALSE;
-	// UNUSED FUNCTION
 }
 
 /**
@@ -211,13 +210,12 @@ static void AlarmHandlerForTimeout(OSAlarm* alarm, OSContext* context)
 
 /**
  * @TODO: Documentation
- * @note UNUSED Size: 000064
+ * @note UNUSED Size: 000064 (Matching by size)
  */
 static void SetTimeoutAlarm(OSTime timeout)
 {
 	OSCreateAlarm(&AlarmForTimeout);
 	OSSetAlarm(&AlarmForTimeout, timeout, AlarmHandlerForTimeout);
-	// UNUSED FUNCTION
 }
 
 /**
@@ -251,12 +249,12 @@ static void Read(void* addr, u32 length, u32 offset, DVDLowCallback callback)
  */
 void AudioBufferOn(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
  * @TODO: Documentation
- * @note UNUSED Size: 0000A0
+ * @note UNUSED Size: 0000A0 (Matching by size)
  */
 BOOL HitCache(DVDBuffer* cur, DVDBuffer* prev)
 {
@@ -268,19 +266,17 @@ BOOL HitCache(DVDBuffer* cur, DVDBuffer* prev)
 		return TRUE;
 	}
 	return FALSE;
-	// UNUSED FUNCTION
 }
 
 /**
  * @TODO: Documentation
- * @note UNUSED Size: 000034
+ * @note UNUSED Size: 000034 (Matching by size)
  */
 static void DoJustRead(void* addr, u32 length, u32 offset, DVDLowCallback callback)
 {
 	CommandList[0].cmd = -1;
 	NextCommandNumber  = 0;
 	Read(addr, length, offset, callback);
-	// UNUSED FUNCTION
 }
 
 /**
@@ -309,7 +305,7 @@ static void SeekTwiceBeforeRead(void* addr, u32 length, u32 offset, DVDLowCallba
 
 /**
  * @TODO: Documentation
- * @note UNUSED Size: 00008C
+ * @note UNUSED Size: 00008C (Matching by size)
  */
 static void WaitBeforeRead(void* addr, u32 length, u32 offset, DVDLowCallback callback, OSTime timeout)
 {
@@ -322,7 +318,6 @@ static void WaitBeforeRead(void* addr, u32 length, u32 offset, DVDLowCallback ca
 	NextCommandNumber       = 0;
 	OSCreateAlarm(&AlarmForWA);
 	OSSetAlarm(&AlarmForWA, timeout, AlarmHandler);
-	// UNUSED FUNCTION
 }
 
 /**
@@ -517,7 +512,7 @@ void DVDLowReset()
  */
 void DVDLowSetResetCoverCallback(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -526,7 +521,7 @@ void DVDLowSetResetCoverCallback(void)
  */
 void DoBreak(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -535,7 +530,7 @@ void DoBreak(void)
  */
 void AlarmHandlerForBreak(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -544,7 +539,7 @@ void AlarmHandlerForBreak(void)
  */
 void SetBreakAlarm(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -575,7 +570,7 @@ DVDLowCallback DVDLowClearCallback()
  */
 void DVDLowGetCoverStatus(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**

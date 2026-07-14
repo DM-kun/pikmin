@@ -4,9 +4,9 @@
 #include "Node.h"
 #include "types.h"
 
-struct Controller;
-struct ModeState;
-struct Menu;
+class Controller;
+class ModeState;
+class Menu;
 
 /**
  * @brief Game section identifiers to segment game flow.
@@ -104,7 +104,8 @@ struct Section : public Node {
  * @note Does not inherit from Section, despite the name - instead, it acts as a list element (Node) *under* a section.
  * @note Size: 0x44.
  */
-struct BaseGameSection : public Node {
+class BaseGameSection : public Node {
+public:
 	BaseGameSection();
 
 	virtual void draw(Graphics& gfx); // _14
@@ -132,8 +133,8 @@ struct BaseGameSection : public Node {
  *
  * @note Size: 0x8.
  */
-struct ModeState {
-
+class ModeState {
+public:
 	/**
 	 * @brief Construct a new base-class control substate.
 	 *

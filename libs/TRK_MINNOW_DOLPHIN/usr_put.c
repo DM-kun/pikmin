@@ -6,7 +6,7 @@
  */
 void usr_putchar_serial(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -15,16 +15,15 @@ void usr_putchar_serial(void)
  */
 BOOL usr_puts_serial(const char* msg)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
  * @TODO: Documentation
- * @note UNUSED Size: 000004
+ * @note UNUSED Size: 000004 (Matching by size)
  */
 void usr_put_initialize_ram(void)
 {
-	// UNUSED FUNCTION
 }
 
 /**
@@ -33,7 +32,7 @@ void usr_put_initialize_ram(void)
  */
 void usr_putchar_ram(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -42,7 +41,7 @@ void usr_putchar_ram(void)
  */
 void usr_puts_ram(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -58,7 +57,7 @@ void usr_put_initialize(void)
  */
 void usr_putchar(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -67,7 +66,7 @@ void usr_putchar(void)
  */
 void usr_puts(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -76,7 +75,7 @@ void usr_puts(void)
  */
 void __do_putchar(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -85,7 +84,7 @@ void __do_putchar(void)
  */
 void __do_puts(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -94,7 +93,7 @@ void __do_puts(void)
  */
 void __do_puthex32(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -103,7 +102,7 @@ void __do_puthex32(void)
  */
 void __do_puthex8(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -112,7 +111,7 @@ void __do_puthex8(void)
  */
 void __do_puthex4(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -121,5 +120,5 @@ void __do_puthex4(void)
  */
 void __do_puthex2(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }

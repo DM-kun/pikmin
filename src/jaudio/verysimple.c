@@ -81,7 +81,7 @@ BOOL Jac_PauseCheck()
  */
 void Jac_UpdateRocketParam(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -284,11 +284,10 @@ void Jac_StopSystemSe(s32 id)
 
 /**
  * @TODO: Documentation
- * @note UNUSED Size: 000004
+ * @note UNUSED Size: 000004 (Matching by size)
  */
 void Jac_PlaySe(u32)
 {
-	// UNUSED FUNCTION
 }
 
 /**
@@ -379,7 +378,7 @@ static void AuxBusInit()
  */
 void Jac_SetThreadPriority(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -447,7 +446,7 @@ void Jac_Start(void* heap, u32 heapSize, u32 aramSize, immut char* rootPath)
  */
 void Jac_StopSoundAll(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -487,7 +486,7 @@ static void __ResetCounter()
  */
 void Jac_Silence_Check(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**

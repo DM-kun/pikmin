@@ -165,7 +165,8 @@ struct NaviProp : public CreatureProp {
 /**
  * @brief TODO
  */
-struct NaviMgr : public MonoObjectMgr {
+class NaviMgr : public MonoObjectMgr {
+public:
 	NaviMgr();
 
 	virtual ~NaviMgr() { }                  // _48

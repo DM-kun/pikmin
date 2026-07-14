@@ -41,7 +41,7 @@ DEFINE_PRINT("GameCourseClearSection")
 /**
  * @brief TODO
  */
-struct GameModeBase {
+class GameModeBase {
 public:
 	GameModeBase(immut char* name)
 	{
@@ -714,8 +714,8 @@ protected:
  *
  * @note Size: 0x554
  */
-struct GameCourseClearScreen : public Node {
-
+class GameCourseClearScreen : public Node {
+public:
 	/**
 	 * @brief TODO
 	 *

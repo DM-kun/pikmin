@@ -4,14 +4,15 @@
 #include "CoreNode.h"
 #include "types.h"
 
-struct Graphics;
+class Graphics;
 
 /**
  * @brief Base class for loading screen drawing managers.
  *
  * @note Size: 0x14.
  */
-struct LoadIdler : public CoreNode {
+class LoadIdler : public CoreNode {
+public:
 	LoadIdler()
 	    : CoreNode("")
 	{

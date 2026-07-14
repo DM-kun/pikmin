@@ -29,24 +29,25 @@ bool AIPerf::iteratorCull = true;
 bool AIPerf::pikiMabiki   = true;
 int AIPerf::optLevel      = 2;
 
-bool AIPerf::showRoute;
-bool AIPerf::generatorMode;
-int AIPerf::moveType;
-bool AIPerf::kandoOnly;
-bool AIPerf::soundDebug;
-bool AIPerf::updateSearchBuffer;
-bool AIPerf::loopOptimise;
-bool AIPerf::useUpdateMgr;
-int AIPerf::ufoLevel;
-int AIPerf::searchCnt;
-int AIPerf::searchCullCnt;
-int AIPerf::searchInsertCnt;
-int AIPerf::collisionCnt;
-int AIPerf::iteratorCullCnt;
-int AIPerf::aiCullCnt;
-int AIPerf::viewCullCnt;
-int AIPerf::outsideViewCnt;
-int AIPerf::drawshapeCullCnt;
+bool AIPerf::showRoute          = false;
+bool AIPerf::generatorMode      = false;
+int AIPerf::moveType            = false;
+bool AIPerf::kandoOnly          = false;
+bool AIPerf::soundDebug         = false;
+bool AIPerf::updateSearchBuffer = false;
+bool AIPerf::loopOptimise       = false;
+bool AIPerf::useUpdateMgr       = false;
+bool AIPerf::psOptimise         = false;
+int AIPerf::ufoLevel            = false;
+int AIPerf::searchCnt           = false;
+int AIPerf::searchCullCnt       = false;
+int AIPerf::searchInsertCnt     = false;
+int AIPerf::collisionCnt        = false;
+int AIPerf::iteratorCullCnt     = false;
+int AIPerf::aiCullCnt           = false;
+int AIPerf::viewCullCnt         = false;
+int AIPerf::outsideViewCnt      = false;
+int AIPerf::drawshapeCullCnt    = false;
 
 /**
  * @todo: Documentation
@@ -284,12 +285,12 @@ void AIPerf::togglePikiMabiki(Menu& menu)
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 000078
+ * @note UNUSED Size: 000078 (Matching by size)
  */
 void AIPerf::togglePsOptimise(Menu& menu)
 {
-	// Wrong, no idea what the variable in here is meant to be
-	sprintf(menu.mCurrentItem->mLabel, "%s", AIPerf::pikiMabiki ? "psOptimise [on]" : "psOptimise [off]");
+	AIPerf::psOptimise = AIPerf::psOptimise ? 0 : 1;
+	sprintf(menu.mCurrentItem->mLabel, "%s", AIPerf::psOptimise ? "psOptimise [on]" : "psOptimise [off]");
 }
 
 /**

@@ -35,12 +35,11 @@ DEFINE_PRINT("GameOnePlayer");
 
 /**
  * @brief Stubbed function, appears to be for writing stage info to a file stream.
- * @note UNUSED Size: 000004
+ * @note UNUSED Size: 000004 (Matching by size)
  */
 void StageInfo::write(RandomAccessStream&)
 {
 	PRINT("writing information for stage %d\n", mStageID);
-	// UNUSED FUNCTION
 }
 
 /**
@@ -383,7 +382,7 @@ void OnePlayerSection::init()
 			// gameplay!
 
 			// The exact position of this DLL-exclusive code is unclear because some of the following code is DOL-exclusive.
-#ifdef WIN32
+#if defined(WIN32) || defined(DEVELOP)
 			_nsPrint = FALSE;
 			_yPrint  = FALSE;
 			_kPrint  = FALSE;

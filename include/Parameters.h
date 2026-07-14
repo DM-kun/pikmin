@@ -3,9 +3,9 @@
 
 #include "types.h"
 
-struct AgeServer;
-struct Parameters;
-struct RandomAccessStream;
+class AgeServer;
+class Parameters;
+class RandomAccessStream;
 
 /**
  * @brief Wrapper class for packing and unpacking fourcc-style identifiers.
@@ -16,8 +16,8 @@ struct RandomAccessStream;
  * Any strings provided should only be 3 characters to ensure no data loss.
  * @note Size: 0x4.
  */
-struct ayuID {
-
+class ayuID {
+public:
 	/// Constructs a blank ID.
 	ayuID() { mID = 0; }
 
@@ -80,8 +80,8 @@ struct BaseParm {
  * @note Constructor and members differ slightly between the DLL and DOL - the name is removed in the DOL.
  * @note Size: 0x4 (0x8 in DLL).
  */
-struct Parameters {
-
+class Parameters {
+public:
 #ifdef WIN32
 	/**
 	 * @brief Constructs an empty (named) parameters list (DLL only).
@@ -128,12 +128,14 @@ struct Parm : public BaseParm {
 	Parm(Parameters* owner, T value, T min, T max, ayuID id, immut char* name)
 	    : BaseParm(owner, id)
 	{
-		mValue = value;
 #ifdef WIN32
+		mName         = name;
+		mValue        = value;
 		mDefaultValue = value;
 		mMinValue     = min;
 		mMaxValue     = max;
-		mName         = name;
+#else
+		mValue = value;
 #endif
 	}
 

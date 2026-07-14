@@ -4,13 +4,13 @@
 #include "Node.h"
 #include "types.h"
 
-struct Camera;
-struct Controller;
-struct Creature;
-struct PcamCamera;
-struct PcamMotionInfo;
-struct PeveEvent;
-struct Vector3f;
+class Camera;
+class Controller;
+class Creature;
+class PcamCamera;
+class PcamMotionInfo;
+class PeveEvent;
+class Vector3f;
 
 /**
  * @brief TODO
@@ -30,7 +30,8 @@ enum PcamVibrationEventIDs {
  *
  * @note Size: 0x30.
  */
-struct PcamCameraManager : public Node {
+class PcamCameraManager : public Node {
+public:
 	PcamCameraManager(Camera*, Controller*);
 
 	virtual void update(); // _10

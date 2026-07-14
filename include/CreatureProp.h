@@ -9,8 +9,8 @@
  *
  * @note Size: 0x58.
  */
-struct CreatureProp {
-
+class CreatureProp {
+public:
 	/**
 	 * @brief TODO
 	 */

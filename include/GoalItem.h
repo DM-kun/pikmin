@@ -15,14 +15,14 @@
 #define IS_DEMO_HIDE_ONYON(flag, color) ((flag) & (1 << (color)))
 
 namespace zen {
-struct particleGenerator;
-struct particleMdl;
+class particleGenerator;
+class particleMdl;
 } // namespace zen
 
-struct ItemShapeObject;
-struct Piki;
-struct SimpleAI;
-struct EffShpInst;
+class ItemShapeObject;
+class Piki;
+class SimpleAI;
+class EffShpInst;
 struct Fulcrum;
 
 /**
@@ -56,8 +56,8 @@ struct GoalLeg {
  *
  * @note Size: 0x494.
  */
-struct GoalItem : public Suckable, public zen::CallBack2<zen::particleGenerator*, zen::particleMdl*> {
-
+class GoalItem : public Suckable, public zen::CallBack2<zen::particleGenerator*, zen::particleMdl*> {
+public:
 	enum DemoHideFlags {
 		ShowAll         = 0,      ///< 0x0, don't hide any onyons/null flag.
 		HideBlueOnyon   = 1 << 0, ///< 0x1, hide blue onyon during cutscenes. Use `IS_DEMO_HIDE_ONYON` to check with PikiColor.

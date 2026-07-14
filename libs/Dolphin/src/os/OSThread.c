@@ -76,14 +76,13 @@ OSThread* OSGetCurrentThread(void)
 
 /**
  * @TODO: Documentation
- * @note UNUSED Size: 000040
+ * @note UNUSED Size: 000040 (Matching by size)
  */
 static void __OSSwitchThread(OSThread* nextThread)
 {
 	__OSCurrentThread = nextThread;
 	OSSetCurrentContext(&nextThread->context);
 	OSLoadContext(&nextThread->context);
-	// UNUSED FUNCTION
 }
 
 /**
@@ -92,7 +91,7 @@ static void __OSSwitchThread(OSThread* nextThread)
  */
 BOOL OSIsThreadSuspended(OSThread* thread)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -105,7 +104,7 @@ BOOL OSIsThreadTerminated(OSThread* thread)
 
 /**
  * @TODO: Documentation
- * @note UNUSED Size: 000044
+ * @note UNUSED Size: 000044 (Matching by size)
  */
 static BOOL __OSIsThreadActive(OSThread* thread)
 {
@@ -121,7 +120,6 @@ static BOOL __OSIsThreadActive(OSThread* thread)
 		}
 	}
 	return FALSE;
-	// UNUSED FUNCTION
 }
 
 /**
@@ -235,7 +233,7 @@ static OSThread* SetEffectivePriority(OSThread* thread, OSPriority priority)
 
 /**
  * @TODO: Documentation
- * @note UNUSED Size: 000078
+ * @note UNUSED Size: 000078 (Matching by size)
  */
 static void UpdatePriority(OSThread* thread)
 {
@@ -251,7 +249,6 @@ static void UpdatePriority(OSThread* thread)
 		}
 		thread = SetEffectivePriority(thread, priority);
 	} while (thread);
-	// UNUSED FUNCTION
 }
 
 /**
@@ -522,7 +519,7 @@ BOOL OSJoinThread(OSThread* thread, void** val)
  */
 void OSDetachThread(OSThread* thread)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -648,7 +645,7 @@ void OSWakeupThread(OSThreadQueue* threadQueue)
  */
 BOOL OSSetThreadPriority(OSThread*, s32)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -665,7 +662,7 @@ OSPriority OSGetThreadPriority(OSThread* thread)
  */
 OSThread* OSSetIdleFunction(OSIdleFunction idleFunc, void* param, void* stack, u32 stackSize)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -674,7 +671,7 @@ OSThread* OSSetIdleFunction(OSIdleFunction idleFunc, void* param, void* stack, u
  */
 OSThread* OSGetIdleFunction(void)
 {
-	// UNUSED FUNCTION
+	TRAP_UNIMPLEMENTED;
 }
 
 /**
@@ -705,7 +702,7 @@ static int CheckThreadQueue(OSThreadQueue* queue)
 
 /**
  * @TODO: Documentation
- * @note UNUSED Size: 00002C
+ * @note UNUSED Size: 00002C (Matching by size)
  */
 static BOOL IsMember(OSThreadQueue* queue, OSThread* thread)
 {
@@ -718,7 +715,6 @@ static BOOL IsMember(OSThreadQueue* queue, OSThread* thread)
 		member = member->link.next;
 	}
 	return 0;
-	// UNUSED FUNCTION
 }
 
 // custom macro for OSCheckActiveThreads?

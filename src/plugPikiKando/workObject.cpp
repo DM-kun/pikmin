@@ -11,6 +11,7 @@
 #include "PlayerState.h"
 #include "RumbleMgr.h"
 #include "SoundMgr.h"
+#include "bugprint.h"
 #include "gameflow.h"
 #include "jaudio/pikiinter.h"
 #include "sysNew.h"
@@ -33,18 +34,21 @@ f32 bridgeFirstPos[5] = { 42.5f, 12.5f, 12.5f, 0.0f, 42.5f };
 f32 bridgeFirstY[5]   = { 10.0f, 0.0f, 0.0f, 0.0f, 10.0f };
 f32 bridgeGrad[5]     = { 0.0f, 8.0f, -8.0f, 0.0f, 0.0f };
 
-struct GenObjInfo {
+/**
+ * @brief FABRICATED
+ */
+struct WorkObjInfo {
 	s32 mType;
 	immut char* mName;
 };
 
-GenObjInfo info[] = {
+WorkObjInfo info[] = {
 	{ 0, "bridge test" },
 	{ 1, "move stone" },
 	{ 2, "..." },
 };
 
-GenObjInfo shpInfo[] = {
+WorkObjInfo shpInfo[] = {
 	{ 0, "bridge 4" }, { 1, "slope up 4" }, { 2, "slope down 4" }, { 3, "stone 10" }, { 4, "bridge 13" }, { 5, "meck" },
 };
 
@@ -110,7 +114,7 @@ void WorkObject::doKill()
 int WorkObjectMgr::getNameIndex(immut char* name)
 {
 	// mType == 2 is the end
-	for (GenObjInfo* i = info; i->mType != 2; i++) {
+	for (WorkObjInfo* i = info; i->mType != 2; i++) {
 		if (!strcmp(i->mName, name)) {
 			return i->mType;
 		}
@@ -126,7 +130,7 @@ int WorkObjectMgr::getNameIndex(immut char* name)
 immut char* WorkObjectMgr::getName(int type)
 {
 	// mType == 2 is the end
-	for (GenObjInfo* i = info; i->mType != 2; i++) {
+	for (WorkObjInfo* i = info; i->mType != 2; i++) {
 		if (i->mType == type) {
 			return i->mName;
 		}
@@ -137,36 +141,34 @@ immut char* WorkObjectMgr::getName(int type)
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 000070
+ * @note UNUSED Size: 000070 (Matching by size)
  */
 int WorkObjectMgr::getShapeNameIndex(immut char* name)
 {
 	// mType == 5 is the end
-	for (GenObjInfo* i = shpInfo; i->mType != 5; i++) {
-		if (!strcmp(i->mName, name)) {
-			return i->mType;
+	for (WorkObjInfo* info = shpInfo; info->mType != 5; info++) {
+		if (!strcmp(info->mName, name)) {
+			return info->mType;
 		}
 	}
 
 	return -1;
-	// UNUSED FUNCTION
 }
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 000038
+ * @note UNUSED Size: 000038 (Matching by size)
  */
 immut char* WorkObjectMgr::getShapeName(int type)
 {
 	// mType == 5 is the end
-	for (GenObjInfo* i = shpInfo; i->mType != 5; i++) {
-		if (i->mType == type) {
-			return i->mName;
+	for (WorkObjInfo* info = shpInfo; info->mType != 5; info++) {
+		if (info->mType == type) {
+			return info->mName;
 		}
 	}
 
 	return nullptr;
-	// UNUSED FUNCTION
 }
 
 /**
@@ -624,18 +626,16 @@ u8 HinderRock::getPlaneFlag(immut Vector3f& pos)
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 0000E8
+ * @note UNUSED Size: 0000E8 (Matching by size)
  */
-Vector3f HinderRock::getTangentPos(f32 mod)
+Vector3f HinderRock::getTangentPos(f32 scale)
 {
 	Vector3f v1 = getVertex(2);
 	Vector3f v2 = getVertex(3);
 
 	Vector3f diff = v2 - v1;
-	diff          = diff * mod + v1;
-	diff.normalise();
-	return diff;
-	// UNUSED FUNCTION
+	Vector3f result = diff * scale + v1;
+	return result;
 }
 
 /**
@@ -1251,7 +1251,7 @@ void Bridge::flatten()
 		int index = mStageJoints[i * 2]->mIndex;
 		if (mBuildShape->mJointVisibility[mStageJoints[i * 2 + 1]->mIndex] && mBuildShape->mJointVisibility[index]) {
 			mBuildShape->jointVisible(index, Joint::NotVisible);
-			PRINT_GLOBAL("flatten bridge");
+			BUGPRINT("flatten bridge");
 		}
 	}
 }
@@ -1264,7 +1264,7 @@ void Bridge::dump()
 	for (int i = 0; i < mStageCount; i++) {
 		const char* a = mBuildShape->mJointVisibility[mStageJoints[i * 2 + 1]->mIndex] ? "|" : "x";
 		const char* b = mBuildShape->mJointVisibility[mStageJoints[i * 2]->mIndex] ? "|" : "x";
-		PRINT_GLOBAL("brd %d : %d%%(w%s:p%s)\n", i, (int)(mStageProgressList[i] / mMaxHealth * 100.0f), a, b);
+		BUGPRINT("brd %d : %d%%(w%s:p%s)\n", i, (int)(mStageProgressList[i] / mMaxHealth * 100.0f), a, b);
 	}
 }
 

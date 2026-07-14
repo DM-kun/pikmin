@@ -113,7 +113,7 @@ void PelletAnimator::init(AnimContext* context1, AnimContext* context2, AnimMgr*
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 000058
+ * @note UNUSED Size: 000058 (Matching by size)
  */
 void PelletAnimator::startMotion(immut PaniMotionInfo* lowerMotionInfo, immut PaniMotionInfo* upperMotionInfo)
 {
@@ -123,7 +123,6 @@ void PelletAnimator::startMotion(immut PaniMotionInfo* lowerMotionInfo, immut Pa
 	if (upperMotionInfo) {
 		mUpperAnimator.startMotion(*upperMotionInfo);
 	}
-	// UNUSED FUNCTION
 }
 
 /**
@@ -157,11 +156,11 @@ void PelletAnimator::startMotion(immut PaniMotionInfo& motionInfo)
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 000084
+ * @note UNUSED Size: 000084 (Matching by size)
  */
-void PelletAnimator::finishMotion(immut PaniAnimKeyListener*)
+void PelletAnimator::finishMotion(PaniAnimKeyListener* listener)
 {
-	// UNUSED FUNCTION
+	finishMotion(stack_new(PaniMotionInfo)(PANI_NO_MOTION, listener), stack_new(PaniMotionInfo)(PANI_NO_MOTION, nullptr));
 }
 
 /**

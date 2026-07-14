@@ -37,16 +37,26 @@ struct NMath {
 		return val;
 	}
 
-	// inlines to make, per the DLL:
-	static f32 maxValue(f32, f32);
-	static T minValue(T x, T y) { return (x < y) ? x : y; }
+	static T maxValue(T x, T y)
+	{
+		if (x < y)
+			return y;
+		return x;
+	}
+
+	static T minValue(T x, T y)
+	{
+		if (x < y)
+			return x;
+		return y;
+	}
 };
 
 typedef NMath<f32> NMathf;
 
 struct NMathF {
 
-	static f32 error;
+	static immut f32 error;
 	static const f32 pi;
 	static const f32 degreePerRadian;
 	static const f32 radianPerDegree;
@@ -73,7 +83,7 @@ struct NMathF {
 	}
 
 	static inline f32 interpolate(f32 x, f32 y, f32 t) { return x * (1.0f - t) + y * t; }
-	static inline f32 length(f32 x, f32 y) { return std::sqrtf(x * x + y * y); }
+	static inline f32 length(f32 x, f32 y) { return std::sqrtf(SQUARE(x) + SQUARE(y)); }
 
 	static inline bool equals(f32 x, f32 y) { return NMathF::isZero(x - y); }
 	static inline bool isPositive(f32 x) { return x >= error; }
@@ -125,9 +135,7 @@ struct NMathF {
 	static inline f32 rateRandom(f32 min, f32 range) { return min * (2.0f * (NSystem::random() - 0.5f)) * range + min; }
 	static inline f32 sqrt(f32 x) { return std::sqrtf(x); }
 	static inline int quotient(f32 num, f32 denom) { return num / denom; }
-
-	// inlines from DLL, to be created:
-	static inline f32 acos(f32);
+	static inline f32 acos(f32 x) { return NMathF::atan2(std::sqrtf(1.0f - SQUARE(x)), x); }
 };
 
 struct NMathI {

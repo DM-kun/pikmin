@@ -10,7 +10,8 @@
  *
  * @note Size: 0x24.
  */
-struct Matrix3f {
+class Matrix3f {
+public:
 	enum mode {
 		MODE_Unk0 = 0,
 	};

@@ -16,10 +16,10 @@ DEFINE_PRINT("itemObject");
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 000074
+ * @note UNUSED Size: 000074 (Matching by size)
  */
 ItemBall::ItemBall(Shape* shape, CreatureProp* props)
-    : ItemCreature(0, props, shape)
+    : ItemCreature(OBJTYPE_Secret1, props, shape)
     , mBallCollision(0)
 {
 }
@@ -51,7 +51,7 @@ bool ItemBall::isVisible()
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 00005C
+ * @note UNUSED Size: 00005C (Matching by size)
  */
 ItemObject::ItemObject(int objType, Shape* shape)
     : ItemCreature(objType, nullptr, shape)

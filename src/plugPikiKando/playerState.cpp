@@ -16,6 +16,7 @@
 #include "Shape.h"
 #include "UfoItem.h"
 #include "UtEffect.h"
+#include "bugprint.h"
 #include "gameflow.h"
 #include "sysNew.h"
 
@@ -337,12 +338,11 @@ int PlayerState::getCardUfoPartsCount()
 
 /**
  * @todo: Documentation
- * @note UNUSED Size: 000078
+ * @note UNUSED Size: 000078 (Matching by size)
  */
 int PlayerState::getUfoPercentage()
 {
-	return getTotalParts() / (MAX_UFO_PARTS) * 100.0f;
-	// UNUSED FUNCTION
+	return static_cast<f32>(mCurrParts) / static_cast<f32>(getTotalParts()) * 100.0f;
 }
 
 /**
@@ -1135,45 +1135,45 @@ void PlayerState::getUfoParts(u32 partID, bool isInvisiblePart)
 		parts->mPartVisType = PARTVIS_Invisible;
 	}
 	mCurrParts++;
-	PRINT_GLOBAL("ufo parts %d/%d", mRequiredUfoPartCount, mCurrParts);
+	BUGPRINT("ufo parts %d/%d", mRequiredUfoPartCount, mCurrParts);
 	for (int i = 0; i < 33; i++) {
 		PRINT("ufoPartsCount = %d\n", mCurrParts);
 	}
 
-	if (mCurrParts >= AIConstant::_instance->mConstants._184()) {
+	if (mCurrParts >= AICONST._184()) {
 		PRINT("PERFECT !\n");
 		mShipUpgradeLevel = 5;
-		PRINT_GLOBAL("--- perfect 5");
-	} else if (mCurrParts >= AIConstant::_instance->mConstants._174()) {
+		BUGPRINT("--- perfect 5");
+	} else if (mCurrParts >= AICONST._174()) {
 		gameflow.mPlayState.openStage(STAGE_Last);
 		playerState->mResultFlags.setSeen(zen::RESFLAG_Collect15Parts);
 		for (int i = 0; i < 10; i++) {
 			PRINT("OPEN STAGE 4 ***\n");
 		}
 		mShipUpgradeLevel = 4;
-		PRINT_GLOBAL("--- level 4");
-	} else if (mCurrParts >= AIConstant::_instance->mConstants._164()) {
+		BUGPRINT("--- level 4");
+	} else if (mCurrParts >= AICONST._164()) {
 		gameflow.mPlayState.openStage(STAGE_Yakushima);
 		playerState->mResultFlags.setOn(zen::RESFLAG_UnlockYakushima);
 		for (int i = 0; i < 10; i++) {
 			PRINT("OPEN STAGE 3 ***\n");
 		}
 		mShipUpgradeLevel = 3;
-		PRINT_GLOBAL("--- level 3");
-	} else if (mCurrParts >= AIConstant::_instance->mConstants._154()) {
+		BUGPRINT("--- level 3");
+	} else if (mCurrParts >= AICONST._154()) {
 		playerState->mResultFlags.setOn(zen::RESFLAG_UnlockCave);
 		gameflow.mPlayState.openStage(STAGE_Cave);
 		for (int i = 0; i < 10; i++) {
 			PRINT("OPEN STAGE 2 ***\n");
 		}
 		mShipUpgradeLevel = 2;
-		PRINT_GLOBAL("--- level 2");
+		BUGPRINT("--- level 2");
 	} else if (mCurrParts >= 1) {
 		gameflow.mPlayState.openStage(STAGE_Forest);
 		for (int i = 0; i < 10; i++) {
 			PRINT("OPEN STAGE 1 ***\n");
 		}
-		PRINT_GLOBAL("--- level 1"); // Yes, it's before the value assignment here.
+		BUGPRINT("--- level 1"); // Yes, it's before the value assignment here.
 		mShipUpgradeLevel = 1;
 	}
 
@@ -1220,10 +1220,10 @@ int PlayerState::getNextPowerupNumber()
 {
 	int counts[6];
 	counts[0] = 1;
-	counts[1] = AIConstant::_instance->mConstants._154();
-	counts[2] = AIConstant::_instance->mConstants._164();
-	counts[3] = AIConstant::_instance->mConstants._174();
-	counts[4] = AIConstant::_instance->mConstants._184();
+	counts[1] = AICONST._154();
+	counts[2] = AICONST._164();
+	counts[3] = AICONST._174();
+	counts[4] = AICONST._184();
 	counts[5] = MAX_UFO_PARTS;
 	return counts[mShipUpgradeLevel] - mCurrParts;
 }
@@ -1237,11 +1237,11 @@ void PlayerState::preloadHenkaMovie()
 	int parts = mCurrParts + 1;
 	if (parts == 1) {
 		level = 1;
-	} else if (AIConstant::_instance->mConstants._154() == parts) {
+	} else if (AICONST._154() == parts) {
 		level = 2;
-	} else if (AIConstant::_instance->mConstants._164() == parts) {
+	} else if (AICONST._164() == parts) {
 		level = 3;
-	} else if (AIConstant::_instance->mConstants._174() == parts) {
+	} else if (AICONST._174() == parts) {
 		level = 4;
 	} else if (MAX_UFO_PARTS == parts) {
 		level = 5;
