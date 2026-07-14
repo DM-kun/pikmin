@@ -22,6 +22,8 @@
 #include <stddef.h>
 
 #ifdef TARGET_PC
+#include "sprout/main.h"
+
 #include <aurora/aurora.h>
 #include <aurora/event.h>
 

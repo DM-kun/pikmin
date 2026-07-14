@@ -1,4 +1,5 @@
 #include "sysBootup.h"
+#include "sprout/main.h"
 
 #include <aurora/aurora.h>
 #include <aurora/event.h>

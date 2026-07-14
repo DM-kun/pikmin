@@ -1,12 +1,9 @@
 <div align="center">
   <img src="res/logo.png" alt="Logo" width="640">
-</div>
-
-# Overview
-<div>
+  <br/>
   A work-in-progress PC Port of Pikmin (GameCube, 2001) using
   <a href="https://github.com/encounter/aurora">
-    <img src="extern/aurora/assets/aurora.png" alt="Powered by Aurora" height="20">
+    <img src="res/aurora.png" alt="Aurora" height="20">
   </a>
 </div>
 <br/>
