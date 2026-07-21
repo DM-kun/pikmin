@@ -4,7 +4,6 @@
 #include "ANode.h"
 #include "types.h"
 
-class AgeServer;
 class RandomAccessStream;
 
 /**
@@ -21,7 +20,20 @@ public:
 	CoreNode(immut char* name = "CoreNode") { initCore(name); }
 
 #ifdef WIN32
-	virtual void genAge(AgeServer&) { }
+	/**
+	 * @brief TODO
+	 */
+	virtual void genAge(AgeServer& server) { }
+
+	/**
+	 * @brief TODO
+	 */
+	virtual void genAgeNode(AgeServer& server) { }
+
+	/**
+	 * @brief TODO
+	 */
+	virtual void write(RandomAccessStream& stream) { }
 #endif
 
 	/**
@@ -113,5 +125,9 @@ public:
 
 #define FOREACH_NODE(type, first, varname) \
 	for (type* varname = static_cast<type*>(first); varname; varname = static_cast<type*>(varname->mNext))
+
+// Sometimes a `CoreNode` derivate pointer gets reused and that affects matching.
+#define FOREACH_NODE_REUSE(type, first, varname) \
+	for (varname = static_cast<type*>(first); varname; varname = static_cast<type*>(varname->mNext))
 
 #endif

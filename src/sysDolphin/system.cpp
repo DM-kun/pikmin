@@ -140,18 +140,18 @@ RandomAccessStream* System::openFile(immut char* path, bool isRelativePath, bool
 
 	if (isRelativePath && (mDvdRoot.getChildCount() || mAramRoot.getChildCount())) {
 
-		FOREACH_NODE(DirEntry, mDvdRoot.mChild, node)
+		FOREACH_NODE(DirEntry, mDvdRoot.mChild, dvdDirEnt)
 		{
-			if (strcmp(node->mName, path) == 0) {
-				aramStream.init(path, node->mAddress, node->mPending);
+			if (strcmp(dvdDirEnt->mName, path) == 0) {
+				aramStream.init(path, dvdDirEnt->mAddress, dvdDirEnt->mPending);
 				return new BufferedInputStream(&aramStream, DVDStream::readBuffer, dvdStream.mSize);
 			}
 		}
 
-		FOREACH_NODE(DirEntry, mAramRoot.mChild, node)
+		FOREACH_NODE(DirEntry, mAramRoot.mChild, aramDirEnt)
 		{
-			if (!strcmp(node->mName, path)) {
-				aramStream.init(path, node->mAddress, node->mPending);
+			if (!strcmp(aramDirEnt->mName, path)) {
+				aramStream.init(path, aramDirEnt->mAddress, aramDirEnt->mPending);
 				return new BufferedInputStream(&aramStream, DVDStream::readBuffer, dvdStream.mSize);
 			}
 		}
@@ -586,13 +586,11 @@ static void ParseMapFile()
  */
 immut char* System::findAddress(u32 address)
 {
-	SymbolInfo* curr = mBuildMapFuncList;
-	while (curr != nullptr) {
+	for (SymbolInfo* curr = mBuildMapFuncList; curr != nullptr; curr = curr->mNext) {
 		u32 minAddr = curr->mVirtualAddress;
 		u32 maxAddr = curr->mNext->mVirtualAddress;
 		if (address >= minAddr && address < maxAddr)
 			return curr->mDemangledName;
-		curr = curr->mNext;
 	}
 	return nullptr;
 }

@@ -27,7 +27,7 @@ public:
 		Vector3f getPos();
 
 		// DLL inlines:
-		PartsInfo* getNext() { return (PartsInfo*)mNext; }
+		PartsInfo* getNext() { return static_cast<PartsInfo*>(mNext); }
 
 		// _00     = VTBL
 		// _00-_14 = CoreNode
@@ -40,7 +40,7 @@ public:
 	void detachParts(Creature*);
 
 	// DLL inlines:
-	PartsInfo* getFirst() { return (PartsInfo*)mAlivePartsList.mChild; }
+	PartsInfo* getFirst() { return static_cast<PartsInfo*>(mAlivePartsList.mChild); }
 
 	PartsInfo mAlivePartsList; // _00
 	PartsInfo mDeadPartsList;  // _18

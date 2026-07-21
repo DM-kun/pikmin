@@ -1,5 +1,6 @@
 #include "DebugLog.h"
 #include "dolphin/os.h"
+#include "SAIEvent.h"
 #include "SimpleAI.h"
 #include "sysNew.h"
 

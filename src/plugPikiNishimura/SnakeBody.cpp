@@ -96,12 +96,14 @@ void SnakeBody::init(immut Vector3f&, Snake* snake)
 	mUseBlend      = false;
 	mBlendingRatio = 0.0f;
 
-	for (int i = 0; i < 7; i++) {
+	int i;
+
+	for (i = 0; i < 7; i++) {
 		mSegmentLengthList[i] = 0.0f;
 		mDeadPtclGens[i]      = nullptr;
 	}
 
-	for (int i = 0; i < 8; i++) {
+	for (i = 0; i < 8; i++) {
 		mSegmentScaleList[i] = 1.0f;
 	}
 
@@ -156,9 +158,11 @@ void SnakeBody::setInitializePosition()
 void SnakeBody::copyAnimPosition()
 {
 	if (mSnake->getCurrentState() >= SNAKEAI_ChaseNavi && mSnake->getCurrentState() <= SNAKEAI_ChasePiki) {
+		Vector3f* animPos;
+		Matrix4f* matrix;
 		for (int i = 0; i < SnakeJointType::SegmentCount; i++) {
 			for (int j = 0; j < 4; j++) {
-				NsCalculation::calcMtxTrans(mSegmentMatrices[i], j, mAnimPosList[i][j]);
+				NsCalculation::calcMtxTrans(*(matrix = &mSegmentMatrices[i]), j, *(animPos = &mAnimPosList[i][j]));
 			}
 		}
 	}

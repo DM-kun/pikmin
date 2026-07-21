@@ -222,7 +222,6 @@ struct MovSampleSetupSection : public Node {
 	}
 	virtual void draw(Graphics& gfx) // _14 (weak)
 	{
-		// NON-MATCHING
 		gfx.setViewport(AREA_FULL_SCREEN(gfx));
 		gfx.setScissor(AREA_FULL_SCREEN(gfx));
 		gfx.setClearColour(COLOUR_TRANSPARENT);
@@ -291,7 +290,8 @@ struct MovSampleSetupSection : public Node {
 		gfx.setColour(COLOUR_WHITE, true);
 
 		// WHY WONT YOU USE DIFFERENT REGISTERS
-		gfx.testRectangle(RectArea(0, 0, 640, 480));
+		int width, height;
+		gfx.testRectangle(RectArea(0, 0, width = 640, height = 480));
 
 		GXSetTevSwapModeTable(GX_TEV_SWAP0, GX_CH_RED, GX_CH_GREEN, GX_CH_BLUE, GX_CH_ALPHA);
 		GXSetTevSwapMode(GX_TEVSTAGE0, GX_TEV_SWAP0, GX_TEV_SWAP0);

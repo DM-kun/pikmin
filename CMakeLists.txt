@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.25)
 set(SPROUT_VERSION "0.1.0")
 project(sprout LANGUAGES C CXX VERSION ${SPROUT_VERSION})
 
-set(GAME_COMPILE_DEFS TARGET_PC BUGFIX VERSION_GPIP01)
+set(GAME_COMPILE_DEFS TARGET_PC BUGFIX VERSION_GPIE01_01)
 
 # Add Aurora as a subdirectory
 add_subdirectory(extern/aurora EXCLUDE_FROM_ALL)

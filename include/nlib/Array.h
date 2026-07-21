@@ -42,11 +42,15 @@ struct NArray {
 	}
 	virtual void set(int idx, T* elem) // _14
 	{
-		if (idx >= 0 && idx <= mMax - 1) {
-			mArray[idx] = elem;
-			if (idx + 1 > mCount) {
-				mCount = idx + 1;
-			}
+		if (idx < 0) {
+			return;
+		}
+		if (idx > mMax - 1) {
+			return;
+		}
+		mArray[idx] = elem;
+		if (idx + 1 > mCount) {
+			mCount = idx + 1;
 		}
 	}
 	virtual void add(T* elem) // _18
@@ -64,11 +68,11 @@ struct NArray {
 	}
 	virtual void remove(int startIdx, int numToRemove) // _20
 	{
-		for (int i = 0; i < numToRemove; i++) {
+		int i;
+		for (i = 0; i < numToRemove; i++) {
 			mArray[startIdx + i] = nullptr;
 		}
-
-		for (int i = 0; i < mCount - (startIdx + numToRemove); i++) {
+		for (i = 0; i < mCount - (startIdx + numToRemove); i++) {
 			mArray[startIdx + i] = mArray[numToRemove + i];
 		}
 		mCount -= numToRemove;
@@ -79,13 +83,17 @@ struct NArray {
 	}
 	virtual void remove(int idx) // _28
 	{
-		if (idx >= 0 && idx <= mCount - 1) {
-			for (int i = idx; i < mCount - 1; i++) {
-				mArray[i] = mArray[i + 1];
-			}
-
-			mCount--;
+		if (idx < 0) {
+			return;
 		}
+		if (idx > mCount - 1) {
+			return;
+		}
+		for (int i = idx; i < mCount - 1; i++) {
+			mArray[i] = mArray[i + 1];
+		}
+
+		mCount--;
 	}
 	virtual void add(int idx, T* elem) // _2C
 	{
@@ -97,13 +105,14 @@ struct NArray {
 	}
 	virtual void insert(int idx, T* elem) // _30
 	{
-		if (idx < mCount) {
-			for (int i = mCount; i >= idx + 1; i--) {
-				mArray[i] = mArray[i - 1];
-			}
-			mArray[idx] = elem;
-			mCount++;
+		if (idx >= mCount) {
+			return;
 		}
+		for (int i = mCount; i >= idx + 1; i--) {
+			mArray[i] = mArray[i - 1];
+		}
+		mArray[idx] = elem;
+		mCount++;
 	}
 	virtual T* get(int idx) // _34
 	{
